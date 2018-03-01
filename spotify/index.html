@@ -1,0 +1,203 @@
+<html>
+  <head>
+    <style>
+    body, html {
+      background: #191414;
+      margin: 0;
+      font-family: Roboto, sans-serif;
+    }
+    table {
+      color: #FFF;
+      font-size: 14pt;
+      font-weight: bold;
+      text-align: center;
+    }
+    td {
+      vertical-align: top;
+    }
+    td.aa {
+      background: #191414; /*linear-gradient(-90deg, #151515, #151515);*/
+    }
+    td.bb {
+      background: #191414; /*linear-gradient(-90deg, #151515, #151515);*/
+    }
+    img {
+      border-radius: 50%;
+    }
+    img.square {
+      border-radius: 0%;
+    }
+    a {
+      text-decoration: none;
+      color: #FFF;
+    }
+    a:hover {
+      text-decoration: none;
+      color: #1db954;
+    }
+    .cc {
+      font-size: 10pt;
+      font-weight: normal;
+      color: #AAA;
+    }
+    .zz {
+      padding-top: 10px;
+      font-size: 10pt;
+      text-align: left;
+      padding-left: 5px;
+      vertical-align: middle;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #1db954;
+      background-color: #191414;
+    }
+    div.bd {
+      /*height: 220px;*/
+      overflow-y: scroll;
+      border-top: 8px solid #29a84f;
+      border-bottom: 8px solid #29a84f;
+    }
+    div::-webkit-scrollbar {
+      width: 8px;
+      background-color: #191414;
+      border-right: 1px solid #1db954;
+      border-left: 1px solid #1db954;
+    }
+    div::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 0px rgba(0,0,0,0.0);
+    }
+    div::-webkit-scrollbar-thumb {
+      background-color: #1db954;
+      outline: 0;
+    }
+    .gb {
+      padding-top: 20px;
+      padding-bottom: 10px;
+    }
+    input {
+      font-family: Roboto, Arial, sans-serif;
+      outline: none;
+      background: transparent;
+      width: 300px;
+      border: 0px;
+      color: #AAA;
+      border-bottom: 1px solid #1db954;
+    }
+    input:hover, input:focus {
+      border-bottom: 1px solid #1db954;
+    }
+    #content {
+      display: none;
+      padding-top: 140px;
+    }
+    #header {
+      background-color: #191414;
+      position: fixed;
+      color: #FFF;
+      top: 0;
+      text-align: center;
+      width: 100%;
+      border-bottom: 8px solid #29a84f;
+    }
+    #footer {
+	    display: none;
+      height: 140px;
+      background-color: #191414;
+      position: fixed;
+      color: #FFF;
+      bottom: 0;
+      text-align: center;
+      width: 100%;
+      border-top: 8px solid #29a84f;
+    }
+    .progress {
+      width: 100%;
+      background-color: #191414;
+    }
+    .bar {
+	  font-size: 14px;
+      width: 0%;
+      height: 20px;
+      background-color: #1db954;
+      text-align: center;
+      line-height: 20px;
+      color: white;
+      font-weight: bold;
+    }
+    </style>
+  </head>
+
+  <body>
+    <div id="header">
+      <table width="100%" cellpadding="0" cellspacing="8" style="text-align: left">
+        <tbody>
+          <tr>
+            <td style="text-align: right" rowspan="5"><img id="p1_img" src="noimg.jpg" width="128px" height="128px"></td>
+            <td id="p1_name"></td>
+          </tr>
+          <tr><td class="cc" id="p1_birth"></td></tr>
+          <tr><td class="cc" id="p1_email"></td></tr>
+          <tr><td class="cc">Token: <input type="text" id="p1_auth"></td></tr>
+          <tr>
+            <td>
+              <div class="progress">
+                <div class="bar" id="p1_bar"></div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="content">
+      <table width="100%" cellspacing="0" cellpadding="0" style="background-color: #1db954">
+        <tbody>
+          <tr>
+            <td class="gb" width="33%">
+              <p>Saved Songs</p>
+              <div class="bd" id="p1_songs"></div>
+              <p id="p1_totalsongs"></p>
+            </td>
+            <td class="gb" width="33%">
+              <p>Saved Albums</p>
+              <div class="bd" id="p1_albums"></div>
+              <p id="p1_totalalbums"></p>
+            </td>
+            <td class="gb" width="33%">
+              <p>Saved Artists</p>
+              <div class="bd" id="p1_artists"></div>
+              <p id="p1_totalartists"></p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="footer">
+      <table width="100%" cellpadding="0" cellspacing="8" style="text-align: left">
+        <tbody>
+          <tr>
+            <td style="text-align: right" rowspan="6"><img id="p2_img" src="noimg.jpg" width="128px" height="128px"></td>
+            <td id="p2_name" width="50%">Send Infos to this Account:</td>
+            <td style="text-align: center; cursor:pointer"><a id="convert">Send Here</a></td>
+          </tr>
+          <tr>
+			<td class="cc" id="p2_birth"></td>
+            <td rowspan="5"><div id="p2_console" style="overflow-y: scroll; height:90px; width:100%"></div></td>
+		  </tr>
+          <tr><td class="cc" id="p2_email"></td></tr>
+          <tr><td class="cc">Token: <input type="text" id="p2_auth"></td></tr>
+          <tr>
+            <td>
+              <div class="progress">
+                <div class="bar" id="p2_bar"></div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script src="js/spotify-web-api.js"></script>
+    <script src="js/index.js"></script>
+  </body>
+</html>
