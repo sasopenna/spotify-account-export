@@ -49,20 +49,24 @@
       padding-left: 5px;
       vertical-align: middle;
       padding-bottom: 10px;
+      border-right: 1px solid #1db954;
+      border-left: 1px solid #1db954;
       border-bottom: 1px solid #1db954;
       background-color: #191414;
     }
     div.bd {
       /*height: 220px;*/
       overflow-y: scroll;
+      background: #191414;
       border-top: 8px solid #29a84f;
       border-bottom: 8px solid #29a84f;
     }
     div::-webkit-scrollbar {
       width: 8px;
       background-color: #191414;
-      border-right: 1px solid #1db954;
-      border-left: 1px solid #1db954;
+      border: 0px;
+      /*border-right: 1px solid #1db954;
+      border-left: 1px solid #1db954;*/
     }
     div::-webkit-scrollbar-track {
       -webkit-box-shadow: inset 0 0 0px rgba(0,0,0,0.0);
@@ -89,7 +93,7 @@
     }
     #content {
       display: none;
-      padding-top: 140px;
+      padding-top: 180px;
     }
     #header {
       background-color: #191414;
@@ -125,16 +129,40 @@
       color: white;
       font-weight: bold;
     }
+    div.bigname {
+      width: 100%;
+      height: 30px;
+      font-weight: bold;
+      background-color: #1db954;
+      border-bottom: 8px solid #29a84f;
+    }
+    a.dark {
+      color: #1b7135;
+      text-decoration: underline;
+    }
+    a.dark:hover {
+      color: #124b23;
+      cursor: pointer;
+    }
     </style>
   </head>
 
   <body>
     <div id="header">
+      <div class="bigname">
+        <table width="100%">
+          <tr style="text-align:left; font-size: 12pt; vertical-align:middle; line-height: 25px">
+            <td><img src="img/icon.png" width="24px" height="24px"></td>
+            <td width="100%">Spotify Account Export</td>
+            <td style="text-align:right; font-size:10pt"><a href="https://github.com/sasopenna/spotify-account-export" class="dark">Guide</a></td>
+          </tr>
+        </table>
+      </div>
       <table width="100%" cellpadding="0" cellspacing="8" style="text-align: left">
         <tbody>
           <tr>
             <td style="text-align: right" rowspan="5"><img id="p1_img" src="img/noimg.jpg" width="128px" height="128px"></td>
-            <td id="p1_name"></td>
+            <td id="p1_name">Get Infos from this Account: </td>
           </tr>
           <tr><td class="cc" id="p1_birth"></td></tr>
           <tr><td class="cc" id="p1_email"></td></tr>
@@ -154,20 +182,25 @@
       <table width="100%" cellspacing="0" cellpadding="0" style="background-color: #1db954">
         <tbody>
           <tr>
-            <td class="gb" width="33%">
-              <p>Saved Songs</p>
+            <td class="gb" width="25%">
+              <p><img id="main0" width="16px" onclick="selectOption(this)" src="img/add.png" onmouseover="changeOver(this, 1)" onmouseout="changeOver(this, 0)" style="cursor:pointer"> Saved Songs</p>
               <div class="bd" id="p1_songs"></div>
               <p id="p1_totalsongs"></p>
             </td>
-            <td class="gb" width="33%">
-              <p>Saved Albums</p>
+            <td class="gb" width="25%">
+              <p><img id="main1" width="16px" onclick="selectOption(this)" src="img/add.png" onmouseover="changeOver(this, 1)" onmouseout="changeOver(this, 0)" style="cursor:pointer"> Saved Albums</p>
               <div class="bd" id="p1_albums"></div>
               <p id="p1_totalalbums"></p>
             </td>
-            <td class="gb" width="33%">
-              <p>Saved Artists</p>
+            <td class="gb" width="25%">
+              <p><img id="main2" width="16px" onclick="selectOption(this)" src="img/add.png" onmouseover="changeOver(this, 1)" onmouseout="changeOver(this, 0)" style="cursor:pointer"> Saved Artists</p>
               <div class="bd" id="p1_artists"></div>
               <p id="p1_totalartists"></p>
+            </td>
+            <td class="gb" width="25%">
+              <p><img id="main3" width="16px" onclick="selectOption(this)" src="img/add.png" onmouseover="changeOver(this, 1)" onmouseout="changeOver(this, 0)" style="cursor:pointer"> Saved Playlists</p>
+              <div class="bd" id="p1_playlists"></div>
+              <p id="p1_totalplaylists"></p>
             </td>
           </tr>
         </tbody>
@@ -183,13 +216,13 @@
             <td style="text-align: center; cursor:pointer"><a id="convert">Send Here</a></td>
           </tr>
           <tr>
-			<td class="cc" id="p2_birth"></td>
-            <td rowspan="5"><div id="p2_console" style="overflow-y: scroll; height:90px; width:100%"></div></td>
-		  </tr>
+      			<td class="cc" id="p2_birth"></td>
+            <td rowspan="4" style="width:300px;"><div id="p2_console" style="overflow-y: scroll; height:72px; width:100%"></div></td>
+    		  </tr>
           <tr><td class="cc" id="p2_email"></td></tr>
           <tr><td class="cc">Token: <input type="text" id="p2_auth"></td></tr>
           <tr>
-            <td>
+            <td colspan="2">
               <div class="progress">
                 <div class="bar" id="p2_bar"></div>
               </div>
