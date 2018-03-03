@@ -450,7 +450,7 @@ var SpotifyWebApi = (function() {
       url: _baseUri + '/me/following/',
       type: 'PUT',
       params: {
-        ids: artistIds,
+        ids: artistIds.join(','),
         type: 'artist'
       }
     };
