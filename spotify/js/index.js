@@ -612,7 +612,7 @@ function startLoop(id = 0, index = 0) {
         for(track of arr) {
           spotifyApi.addTracksToPlaylist(other_array.id, playlist_id, track);
         }
-        uploadBar(user_array.progress, "Created '" + playlist.name + "' playlist with " + arr.length + "songs");
+        uploadBar(user_array.progress, "Created '" + playlist.name + "' playlist with " + playlist.tracks.length + " songs");
         user_array.progress++;
 
         index++;
