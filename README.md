@@ -8,7 +8,6 @@ You can choose which item to export and which not. You can also *stop* the proce
 
 (Note: If the process gets stopped, the data that was already imported **will not get removed**)
 
-
 # How to use
 
 1. Connect to the [**Spotify Account Export**](http://sasopenna.github.io/spotify/) page.
@@ -20,5 +19,5 @@ You can choose which item to export and which not. You can also *stop* the proce
 7. Go to [this](https://developer.spotify.com/web-api/console/get-current-user/) link and click **GET OAUTH TOKEN**, allow **everything** and copy the token.
 8. Paste the token into the field under **Send Infos to this Account** in the **Spotify Account Export** site.
 9. Press *ENTER* to initialize the informations fetching process.
-10. Click <img src="https://raw.githubusercontent.com/sasopenna/spotify-account-export/master/spotify/img/add.png" width="10px"> to add an item and click <img src="https://raw.githubusercontent.com/sasopenna/spotify-account-export/master/spotify/img/remove.png" width="10px"> to remove an item.
+10. Click <img src="https://raw.githubusercontent.com/sasopenna/spotify-account-export/master/img/add.png" width="10px"> to add an item and click <img src="https://raw.githubusercontent.com/sasopenna/spotify-account-export/master/img/remove.png" width="10px"> to remove an item.
 11. Click **Send Here** to initialize the process of exporting.
