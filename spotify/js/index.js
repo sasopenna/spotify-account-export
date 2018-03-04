@@ -607,11 +607,12 @@ function startLoop(id = 0, index = 0) {
           started = false;
           return;
         }
-        let arr = spliceArray(playlist.tracks);
+        let arr = spliceArray(playlist.tracks, 100);
+        let playlist_id = data.id;
         for(track of arr) {
-          spotifyApi.addTracksToPlaylist(other_array.id, data.id, track);
+          spotifyApi.addTracksToPlaylist(other_array.id, playlist_id, track);
         }
-        uploadBar(user_array.progress, "Creating '" + playlist.name + "' playlist");
+        uploadBar(user_array.progress, "Created '" + playlist.name + "' playlist with " + arr.length + "songs");
         user_array.progress++;
 
         index++;
@@ -630,7 +631,7 @@ function spliceArray(arr, limit = 100, get = "") {
   let result = [];
   let array = [];
   for(let a of arr) {
-    if(!a.export) continue;
+    if(!a.export && a.export != undefined) continue;
     array.push((get.length > 0) ? a[get] : a);
   }
   let len = array.length;
@@ -645,10 +646,6 @@ function spliceArray(arr, limit = 100, get = "") {
   return result;
 }
 
-window.onresize = function() {
-  resizeBD()
-}
-
 function resizeBD() {
   let bd_array = document.getElementsByClassName("bd");
   let h = window.innerHeight;
@@ -656,3 +653,5 @@ function resizeBD() {
     bd.style.height = (h - 450) + "px";
   }
 }
+
+window.onresize = resizeBD;
