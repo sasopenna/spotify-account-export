@@ -636,7 +636,7 @@ function spliceArray(arr, limit = 100, get = "") {
   }
   let len = array.length;
   for(let s = 0; s < len; s += limit) {
-    let spliced = [], p = s;
+    let spliced = [];
     for(let p = s; p < (s+limit); p++) {
       if(p >= len) break;
       spliced.push(array[p]);
