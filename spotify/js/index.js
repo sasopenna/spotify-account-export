@@ -607,7 +607,7 @@ function startLoop(id = 0, index = 0) {
           started = false;
           return;
         }
-        let arr = spliceArray(playlist.tracks, 100);
+        let arr = spliceArray(playlist.tracks);
         let playlist_id = data.id;
         for(track of arr) {
           spotifyApi.addTracksToPlaylist(other_array.id, playlist_id, track);
