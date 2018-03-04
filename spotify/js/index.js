@@ -482,7 +482,7 @@ function selectOption(parent, change = -1) {
 
 function uploadBar(index_length, cons) {
   if(!started) return;
-  let divide = ((index_length/user_array.total) * 100).toFixed(2);
+  let divide = ((index_length + 1/user_array.total + 1) * 100).toFixed(2);
   if(divide >= 100.00) {
     divide = 100.00.toFixed(2);
     document.getElementById("convert").innerHTML = "Send Here";
