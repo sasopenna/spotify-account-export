@@ -1,4 +1,4 @@
-let token = "";
+let token = "OAuth Token";
 let spotifyApi = new SpotifyWebApi();
 
 let user_array = [];
