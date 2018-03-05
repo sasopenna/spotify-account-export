@@ -44,8 +44,8 @@ a:hover {
   padding-left: 5px;
   vertical-align: middle;
   padding-bottom: 10px;
-  border-right: 1px solid #1db954;
-  border-left: 1px solid #1db954;
+  /*border-right: 1px solid #1db954;
+  border-left: 1px solid #1db954;*/
   border-bottom: 1px solid #1db954;
   background-color: #191414;
 }
@@ -53,21 +53,25 @@ div.bd {
   /*height: 220px;*/
   overflow-y: scroll;
   background: #191414;
-  border-top: 8px solid #29a84f;
-  border-bottom: 8px solid #29a84f;
+  border-top: 8px solid #249747;
+  border-bottom: 8px solid #249747;
 }
-div::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 8px;
-  background-color: #191414;
+  background-color: #1db954;
   border: 0px;
-  /*border-right: 1px solid #1db954;
-  border-left: 1px solid #1db954;*/
 }
-div::-webkit-scrollbar-track {
+
+.bd::-webkit-scrollbar {
+  border-right: 1px solid #1db954;
+  border-left: 1px solid #1db954;
+}
+
+::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 0px rgba(0,0,0,0.0);
 }
-div::-webkit-scrollbar-thumb {
-  background-color: #1db954;
+::-webkit-scrollbar-thumb {
+  background-color: #249747;
   outline: 0;
 }
 .gb {
@@ -97,7 +101,7 @@ input:hover, input:focus {
   top: 0;
   text-align: center;
   width: 100%;
-  border-bottom: 8px solid #29a84f;
+  border-bottom: 8px solid #249747;
 }
 #footer {
   display: none;
@@ -108,7 +112,7 @@ input:hover, input:focus {
   bottom: 0;
   text-align: center;
   width: 100%;
-  border-top: 8px solid #29a84f;
+  border-top: 8px solid #249747;
 }
 .progress {
   width: 100%;
@@ -129,7 +133,7 @@ div.bigname {
   height: 30px;
   font-weight: bold;
   background-color: #1db954;
-  border-bottom: 8px solid #29a84f;
+  border-bottom: 8px solid #249747;
 }
 a.dark {
   color: #1b7135;
