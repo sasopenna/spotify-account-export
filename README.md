@@ -12,11 +12,11 @@ You can choose which item to export and which not. You can also *stop* the proce
 
 1. Connect to the [**Spotify Account Export**](http://sasopenna.github.io/spotify/) page.
 2. Login into the **Spotify** account you want to export. [(here)](https://accounts.spotify.com/it-IT/login)
-3. Go to [this](https://developer.spotify.com/web-api/console/get-current-user/) link and click **GET OAUTH TOKEN**, allow **everything** and copy the token.
+3. Go to [this](https://developer.spotify.com/web-api/console/get-current-user/token?scope=user-read-private&scope=user-read-birthdate&scope=user-read-email&scope=playlist-read-private&scope=playlist-read-collaborative&scope=playlist-modify-public&scope=playlist-modify-private&scope=user-library-read&scope=user-library-modify&scope=user-follow-read&scope=user-follow-modify&scope=user-top-read&scope=user-read-playback-state&scope=user-read-recently-played&scope=user-read-currently-playing&scope=user-modify-playback-state) link and click **GET OAUTH TOKEN**, allow **everything** and copy the token.
 4. Paste the token into the field under **Get Infos from this Account** in the **Spotify Account Export** site.
 5. Press *ENTER* to initialize the informations fetching process.
 6. Once it's finished, disconnect from the previous account by clicking [here](https://www.spotify.com/it/logout/) and login into the new account by clicking [here](https://accounts.spotify.com/it-IT/login).
-7. Go to [this](https://developer.spotify.com/web-api/console/get-current-user/) link and click **GET OAUTH TOKEN**, allow **everything** and copy the token.
+7. Go to [this](https://developer.spotify.com/web-api/console/get-current-user/token?scope=user-read-private&scope=user-read-birthdate&scope=user-read-email&scope=playlist-read-private&scope=playlist-read-collaborative&scope=playlist-modify-public&scope=playlist-modify-private&scope=user-library-read&scope=user-library-modify&scope=user-follow-read&scope=user-follow-modify&scope=user-top-read&scope=user-read-playback-state&scope=user-read-recently-played&scope=user-read-currently-playing&scope=user-modify-playback-state) link and click **GET OAUTH TOKEN**, allow **everything** and copy the token.
 8. Paste the token into the field under **Send Infos to this Account** in the **Spotify Account Export** site.
 9. Press *ENTER* to initialize the informations fetching process.
 10. Click <img src="https://raw.githubusercontent.com/sasopenna/spotify-account-export/master/img/add.png" width="10px"> to add an item and click <img src="https://raw.githubusercontent.com/sasopenna/spotify-account-export/master/img/remove.png" width="10px"> to remove an item.
