@@ -1,5 +1,5 @@
-let token = "";
 let spotifyApi = new SpotifyWebApi();
+let token = "";
 
 let user_array = [];
 let other_array = [];
@@ -261,7 +261,6 @@ function getSavedAlbums(error, data) {
           artists: art,
           img: albums.album.images[0].url,
           id: albums.album.id
-          //albums.album.id
         });
 
         albums_array.sort(function(a, b) {
@@ -345,7 +344,6 @@ function getSavedPlaylists(error, data) {
           started = false;
           contentDiv.style.display = "block";
           footerDiv.style.display = "block";
-          //showSongs();
         }
       }
     });
@@ -417,12 +415,12 @@ function show(id, array) {
       </tr>\
       <tr>\
         <td class="cc">';
-    if(element.artists) {
-      div += '' + element.artists[0];
-      for(let i = 1; i < element.artists.length; i++) {
-        div += ', ' + element.artists[i];
-      }
-    }
+        if(element.artists) {
+          div += '' + element.artists[0];
+          for(let i = 1; i < element.artists.length; i++) {
+            div += ', ' + element.artists[i];
+          }
+        }
     div+='</td>\
       </tr>\
     </table>';
@@ -454,7 +452,6 @@ function selectOption(parent, change = -1) {
     }
     array[number].export = change;
   } else {
-    //let
     type[0] = parseInt(parent.id.substring(4));
     switch(type[0]) {
       case 0: array = songs_array; type[1] = "songs"; break;
@@ -478,21 +475,19 @@ function selectOption(parent, change = -1) {
   document.getElementById("p1_total" + type[1]).innerHTML = "Total " + type[1] + ": " + spliceArray(array, 1, "id").length;
 }
 
-/////altro
-
 function uploadBar(index_length, cons) {
   if(!started) return;
-  let divide = ((index_length + 1/user_array.total + 1) * 100).toFixed(2);
+  let divide = (((index_length + 1)/(user_array.total + 1)) * 100).toFixed(2);
   if(divide >= 100.00) {
     divide = 100.00.toFixed(2);
     document.getElementById("convert").innerHTML = "Send Here";
   }
 
   percentDiv[1].style.width = divide + "%";
-  percentDiv[1].innerHTML = (divide > 0 ) ? (divide + "%") : "";
+  percentDiv[1].innerHTML = (divide > 0) ? (divide + "%") : "";
 
   let div = document.getElementById("p2_console").innerHTML;
-  div = '<span class="cc">' + (((divide < 100.00)) ? cons : 'Finished. 100%') + '</span><br>' + div;
+  div = '<span class="cc">' + ((divide < 100.00) ? cons : 'Finished. 100%') + '</span><br>' + div;
   document.getElementById("p2_console").innerHTML = div;
 }
 
@@ -502,129 +497,68 @@ function startLoop(id = 0, index = 0) {
     return;
   }
 
-  if(id == 0) {
-    let array = spliceArray(songs_array, 50, "id");
-    if(array.length == 0) {
-      startLoop(1, 0);
-      return;
-    }
-    spotifyApi.addToMySavedTracks({
-      ids: array[index]
-    }, function(error, data) {
-      if(error) {
-        uploadBar(0, "Error. Check the browser console.");
-        started = false;
-        return;
-      }
-      uploadBar(user_array.progress, "Added " + array[index].length + " songs");
-      user_array.progress += array[index].length;
+  let data_array = [
+    ["addToMySavedTracks", songs_array, "songs", 50, "id"],
+    ["addToMySavedAlbums", albums_array, "albums", 50, "id"],
+    ["followArtists", artists_array, "artists", 50, "id"],
+    ["followPlaylist", getFromArray(playlists_array, "owner", user_array.id), "playlist", 1, ""],
+    ["createPlaylist", getFromArray(playlists_array, "owner", user_array.id, false), "playlist", 1, ""]
+  ];
 
-      index++;
+  if(id >= data_array.length) {
+    uploadBar(user_array.total, "");
+    started = false;
+    return;
+  }
 
-      if(index < array.length) { startLoop(id, index); }
-      else { startLoop(1, 0); }
-    });
-  } else if(id == 1) {
-    let array = spliceArray(albums_array, 50, "id");
-    if(array.length == 0) {
-      startLoop(2, 0);
-      return;
-    }
-    spotifyApi.addToMySavedAlbums({
-      ids: array[index]
-    }, function(error, data) {
-      if(error) {
-        uploadBar(0, "Error. Check the browser console.");
-        started = false;
-        return;
-      }
-      uploadBar(user_array.progress, "Added " + array[index].length + " albums");
-      user_array.progress += array[index].length;
+  let da = data_array[id];
+  sendData(da[0], da[1], da[2], id, index, da[3], da[4]);
+}
 
-      index++;
+function sendData(parent, array_data, type, id, index, limit, get_t) {
+  let array = spliceArray(array_data, limit, get_t);
+  if(array.length == 0) {
+    id++;
+    startLoop(id, 0);
+    return;
+  }
+  let data = array[index];
+  let len = data.length;
 
-      if(index < array.length) { startLoop(id, index); }
-      else { startLoop(2, 0); }
-    });
-  } else if(id == 2) {
-    let array = spliceArray(artists_array, 50, "id");
-    if(array.length == 0) {
-      startLoop(3, 0);
-      return;
-    }
-    spotifyApi.followArtists([
-      array[index]
-    ], function(error, data) {
-      if(error) {
-        uploadBar(0, "Error. Check the browser console.");
-        started = false;
-        return;
-      }
-      uploadBar(user_array.progress, "Added " + array[index].length + " artists");
-      user_array.progress += array[index].length;
+  let obj_array = [
+    { ids: data },
+    { ids: data },
+    [ data ],
+    { ownerId: data.owner, playlistId: data.id, public: data.public },
+    { userId: other_array.id, public: data.public, name: data.name, collaborative: data.collaborative }
+  ];
 
-      index++;
-
-      if(index < array.length) { startLoop(id, index); }
-      else { startLoop(3, 0); }
-    });
-  } else if(id == 3) {
-    let array = spliceArray(playlists_array, 1);
-    if(array.length == 0) {
-      uploadBar(user_array.total, "");
+  spotifyApi[parent](obj_array[id], function(get_error, get_data) {
+    if(get_error) {
+      uploadBar(0, "Error. Check the browser console.");
       started = false;
       return;
     }
-    let playlist = array[index][0];
-    if(playlist.owner != user_array.id) { //follow playlist that wasnt created by him
-      spotifyApi.followPlaylist(playlist.owner, playlist.id, {
-        public: playlist.public
-      }, function(error, data) {
-        if(error) {
-          uploadBar(0, "Error. Check the browser console.");
-          started = false;
-          return;
-        }
-        uploadBar(user_array.progress, "Following '" + playlist.name + "' playlist");
-        user_array.progress++;
 
-        index++;
+    uploadBar(user_array.progress, ("Added " + ((len == undefined) ? data.name : len) + " " + type));
+    user_array.progress += (len == undefined) ? 1 : len;
 
-        if(index < array.length) { startLoop(id, index); }
-        else {
-          uploadBar(user_array.total, "");
-          started = false;
-        }
-      });
-    } else {
-      spotifyApi.createPlaylist(other_array.id, { //create playlist
-        public: playlist.public,
-        name: playlist.name,
-        collaborative: playlist.collaborative
-      }, function(error, data) {
-        if(error) {
-          uploadBar(0, "Error. Check the browser console.");
-          started = false;
-          return;
-        }
-        let arr = spliceArray(playlist.tracks);
-        let playlist_id = data.id;
-        for(track of arr) {
-          spotifyApi.addTracksToPlaylist(other_array.id, playlist_id, track);
-        }
-        uploadBar(user_array.progress, "Created '" + playlist.name + "' playlist with " + playlist.tracks.length + " songs");
-        user_array.progress++;
-
-        index++;
-
-        if(index < array.length) { startLoop(id, index); }
-        else {
-          uploadBar(user_array.total, "");
-          started = false;
-        }
-      });
+    if(data.tracks) {
+      let arr = spliceArray(data.tracks);
+      let playlist_id = get_data.id;
+      for(track of arr) {
+        spotifyApi.addTracksToPlaylist(other_array.id, playlist_id, track);
+      }
     }
-  }
+
+    index++;
+
+    if(index < array.length) startLoop(id, index);
+    else {
+      id++;
+      startLoop(id, 0);
+    }
+  });
 }
 
 function spliceArray(arr, limit = 100, get = "") {
@@ -637,11 +571,25 @@ function spliceArray(arr, limit = 100, get = "") {
   let len = array.length;
   for(let s = 0; s < len; s += limit) {
     let spliced = [];
-    for(let p = s; p < (s+limit); p++) {
-      if(p >= len) break;
-      spliced.push(array[p]);
+    if(limit == 1) {
+      spliced = array[s];
+    } else {
+      for(let p = s; p < (s+limit); p++) {
+        if(p >= len) break;
+        spliced.push(array[p]);
+      }
     }
     result.push(spliced);
+  }
+  return result;
+}
+
+function getFromArray(array, obj, equal, other = true) {
+  let result = [];
+  for(let arr of array) {
+    if(arr[obj] != equal && !other) continue;
+    if(arr[obj] == equal && other) continue;
+    result.push(arr);
   }
   return result;
 }
