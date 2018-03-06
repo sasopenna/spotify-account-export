@@ -473,12 +473,15 @@ var SpotifyWebApi = (function() {
    * one is the error object (null if no error), and the second is an empty value if the request succeeded.
    * @return {Object} Null if a callback is provided, a `Promise` object otherwise
    */
-  Constr.prototype.followPlaylist = function(ownerId, playlistId, options, callback) {
+  Constr.prototype.followPlaylist = function(options, callback) {
     var requestData = {
-      url: _baseUri + '/users/' + encodeURIComponent(ownerId) + '/playlists/' + playlistId + '/followers',
+      url: _baseUri + '/users/' + encodeURIComponent(options.ownerId) + '/playlists/' + options.playlistId + '/followers',
       type: 'PUT',
       postData: {}
     };
+
+    delete options.ownerId;
+    delete options.playlistId;
 
     return _checkParamsAndPerformRequest(requestData, options, callback);
   };
@@ -752,12 +755,15 @@ var SpotifyWebApi = (function() {
    * one is the error object (null if no error), and the second is the value if the request succeeded.
    * @return {Object} Null if a callback is provided, a `Promise` object otherwise
    */
-  Constr.prototype.createPlaylist = function(userId, options, callback) {
+  Constr.prototype.createPlaylist = function(options, callback) {
     var requestData = {
-      url: _baseUri + '/users/' + encodeURIComponent(userId) + '/playlists',
+      url: _baseUri + '/users/' + encodeURIComponent(options.userId) + '/playlists',
       type: 'POST',
       postData: options
     };
+
+    delete options.userId;
+
     return _checkParamsAndPerformRequest(requestData, options, callback);
   };
 
