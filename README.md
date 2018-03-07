@@ -8,6 +8,7 @@ You can choose which item to export and which not. You can also *stop* the proce
 
 (Note: If the process gets stopped, the data that was already imported **will not get removed**)
 
+
 # How to use
 
 1. Connect to the [**Spotify Account Export**](http://sasopenna.github.io/spotify/) page.
@@ -21,3 +22,12 @@ You can choose which item to export and which not. You can also *stop* the proce
 9. Press *ENTER* to initialize the informations fetching process.
 10. Click <img src="https://raw.githubusercontent.com/sasopenna/spotify-account-export/master/img/add.png" width="10px"> to add an item and click <img src="https://raw.githubusercontent.com/sasopenna/spotify-account-export/master/img/remove.png" width="10px"> to remove an item.
 11. Click **Send Here** to initialize the process of exporting.
+
+## JSON
+- ### Export JSON
+1. Login into the **Spotify** account you want to export. [(here)](https://accounts.spotify.com/it-IT/login)
+2. Go to [this](https://developer.spotify.com/web-api/console/get-current-user/token?scope=user-read-private&scope=user-read-birthdate&scope=user-read-email&scope=playlist-read-private&scope=playlist-read-collaborative&scope=playlist-modify-public&scope=playlist-modify-private&scope=user-library-read&scope=user-library-modify&scope=user-follow-read&scope=user-follow-modify&scope=user-top-read&scope=user-read-playback-state&scope=user-read-recently-played&scope=user-read-currently-playing&scope=user-modify-playback-state) link and click **GET OAUTH TOKEN**, allow **everything** and copy the token. 
+3. Click **Export JSON** to save the JSON file of that account.
+- ### Upload JSON
+1. Click on **Upload JSON** and select the JSON file with the account informations.
+2. If you want to export this JSON file into another account, go to **How to use** and follow point number 6.
