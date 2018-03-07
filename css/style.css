@@ -75,6 +75,7 @@ div.bd {
   outline: 0;
 }
 .gb {
+  text-transform: capitalize;
   padding-top: 20px;
   padding-bottom: 10px;
 }
@@ -119,7 +120,7 @@ input:hover, input:focus {
   background-color: #191414;
 }
 .bar {
-font-size: 14px;
+  font-size: 14px;
   width: 0%;
   height: 20px;
   background-color: #1db954;
@@ -141,5 +142,18 @@ a.dark {
 }
 a.dark:hover {
   color: #124b23;
+  cursor: pointer;
+}
+
+input[type="file"] {
+  display: none;
+}
+.upload {
+  text-align:center;
+  width: 200px;
+  border: 1px solid #1db954;
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 8pt;
   cursor: pointer;
 }
