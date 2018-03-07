@@ -24,12 +24,21 @@
           <tr>
             <td style="text-align: right" rowspan="5"><img id="p1_img" src="img/noimg.jpg" width="128px" height="128px"></td>
             <td id="p1_name">Get Infos from this Account: </td>
+            <td rowspan="4" width="200px">
+              <p  style="font-size: 10pt; font-weight: bold; text-align: center; color: #1db954">JSON</p>
+              <form target="iframe" method="post" enctype="multipart/form-data">
+                <label for="upload" class="upload">Upload JSON</label>
+                <input name="file" type="file" id="upload">
+              </form>
+              <label class="upload">Export JSON</label>
+              <iframe name="iframe" id="iframe" style="display:none"></iframe>
+            </td>
           </tr>
           <tr><td class="cc" id="p1_birth"></td></tr>
           <tr><td class="cc" id="p1_email"></td></tr>
           <tr><td class="cc">Token: <input type="text" id="p1_auth"></td></tr>
           <tr>
-            <td>
+            <td colspan="2">
               <div class="progress">
                 <div class="bar" id="p1_bar"></div>
               </div>
@@ -93,6 +102,12 @@
       </table>
     </div>
 
+    <script src="js/array.js"></script>
+    <script src="js/json.js"></script>
+    <script src="js/window.js"></script>
+    <script src="js/spotify.conf.js"></script>
+    <script src="js/spotify.getsaved.js"></script>
+    <script src="js/spotify.send.js"></script>
     <script src="js/index.js"></script>
   </body>
 </html>
