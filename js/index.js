@@ -1,17 +1,3 @@
-let spotifyApi = new SpotifyWebApi();
-let token = "";
-
-let user_array = [];
-let other_array = [];
-let songs_array = [];
-let albums_array = [];
-let artists_array = [];
-let playlists_array = [];
-let main_array = [true, true, true, true];
-
-let otheruser = false;
-let started = false;
-let maxquery = 50;
 let getAuth = [
   document.getElementById("p1_auth"),
   document.getElementById("p2_auth"),
@@ -20,6 +6,7 @@ let percentDiv = [
   document.getElementById("p1_bar"),
   document.getElementById("p2_bar")
 ];
+let jsonLabels = document.getElementsByClassName("upload");
 let contentDiv = document.getElementById("content");
 let footerDiv = document.getElementById("footer");
 
@@ -31,6 +18,8 @@ getAuth[0].addEventListener("keydown", function(e) {
   started = true;
   otheruser = false;
   token = getAuth[0].value;
+
+  CHECK_ID = 0;
 
   user_array = [];
   other_array = [];
@@ -61,6 +50,7 @@ getAuth[0].addEventListener("keydown", function(e) {
   footerDiv.style.display = "none";
   contentDiv.style.display = "none";
   spotifyApi.setAccessToken(token);
+
   startCheck();
 });
 
@@ -108,7 +98,7 @@ getAuth[1].addEventListener("keydown", function(e) {
 
     document.getElementById("p2_birth").innerHTML = "Birthday: " + user.birthdate;
     document.getElementById("p2_email").innerHTML = "E-mail: " + user.email;
-    document.getElementById("p2_name").innerHTML = 'Send Infos to this Account: <a href="' + user.external_urls.spotify + '">' + user.display_name + '</a>';
+    document.getElementById("p2_name").innerHTML = 'Send Infos to this Account: <a href="' + user.external_urls.spotify + '">' + ((user.display_name != null) ? user.display_name : user.id) + '</a>';
     document.getElementById("p2_img").src = (user.images.length) ? user.images[0].url : "img/noimg.jpg";
 
     otheruser = true;
@@ -135,19 +125,7 @@ document.getElementById("convert").addEventListener("click", function(e) {
   }
 });
 
-resizeBD();
-
-function startCheck(id = 0) {
-  if(id >= 5) return;
-
-  if(id == 0)       spotifyApi.getMe(getStats);
-  else if(id == 1)  spotifyApi.getMySavedTracks({limit: 1}, getSavedTracks);
-  else if(id == 2)  spotifyApi.getMySavedAlbums({limit: 1}, getSavedAlbums);
-  else if(id == 3)  spotifyApi.getFollowedArtists({limit: 1}, getSavedArtists);
-  else if(id == 4)  spotifyApi.getUserPlaylists({limit: 1}, getSavedPlaylists);
-}
-
-function getStats(error, data) {
+function gotStats(error, data) {
   if(error) {
     percentDiv[0].style.background = "#FF0000";
     percentDiv[0].style.width = "100%";
@@ -168,240 +146,22 @@ function getStats(error, data) {
   user_array = data;
   user_array.total = 0;
   user_array.start = 0;
+  user_array.tot_arr = [];
   user_array.progress = 0;
   getAuth[0].value = token;
 
   document.getElementById("p1_birth").innerHTML = "Birthday: " + user_array.birthdate;
   document.getElementById("p1_email").innerHTML = "E-mail: " + user_array.email;
-  document.getElementById("p1_name").innerHTML = 'Get Infos from this Account: <a href="' + user_array.external_urls.spotify + '">' + user_array.display_name + '</a>';
+  document.getElementById("p1_name").innerHTML = 'Get Infos from this Account: <a href="' + user_array.external_urls.spotify + '">' + ((user_array.display_name != null) ? user_array.display_name : user_array.id) + '</a>';
   document.getElementById("p1_img").src = (user_array.images.length) ? user_array.images[0].url : "img/noimg.jpg";
 
-  startCheck(1);
+  document.getElementById('upload').value = "";
+  jsonLabels[0].innerText = "Upload JSON";
+
+  startCheck();
 }
 
-function getSavedTracks(error, data) {
-  if(error) { started = false; return; }
-
-  let maxsongs = data.total;
-  user_array.total += maxsongs;
-
-  if(maxsongs == 0) {
-    show("songs", songs_array);
-    startCheck(2);
-  }
-
-  for(let off = 0; off <= maxsongs; off += maxquery) {
-    spotifyApi.getMySavedTracks({
-      limit: maxquery,
-      offset: off
-    }, function(error, data) {
-      let value = data.items;
-      let idx = off;
-      for(song of value) {
-        let art = [];
-        for(artist of song.track.artists) {
-          art.push(artist.name);
-        }
-
-        songs_array.push({
-          type: "track",
-          export: true,
-          index: idx,
-          name: song.track.name,
-          id: song.track.id,
-          img: song.track.album.images[0].url,
-          artists: art
-        });
-
-        songs_array.sort(function(a, b) {
-          return a.index - b.index;
-        });
-
-        idx++;
-        updateBar();
-
-        if(songs_array.length == maxsongs) {
-          show("songs", songs_array);
-          startCheck(2);
-        }
-      }
-    });
-  }
-}
-
-function getSavedAlbums(error, data) {
-  if(error) { started = false; return; }
-
-  let maxalbums = data.total;
-  user_array.total += maxalbums;
-
-  if(maxalbums == 0) {
-    show("albums", albums_array);
-    startCheck(3);
-  }
-
-  for(let off = 0; off <= maxalbums; off += maxquery) {
-    spotifyApi.getMySavedAlbums({
-      limit: maxquery,
-      offset: off
-    }, function(error, data) {
-      let value = data.items;
-      let idx = off;
-
-      for(albums of value) {
-        let art = [];
-        for(artist of albums.album.artists) {
-          art.push(artist.name);
-        }
-
-        albums_array.push({
-          type: "album",
-          export: true,
-          name: albums.album.name,
-          artists: art,
-          img: albums.album.images[0].url,
-          id: albums.album.id
-        });
-
-        albums_array.sort(function(a, b) {
-          return a.index - b.index;
-        });
-
-        idx++;
-        updateBar();
-
-        if(albums_array.length == maxalbums) {
-          show("albums", albums_array);
-          startCheck(3);
-        }
-      }
-    });
-  }
-}
-
-function getTracks(user_id, playlist_id, total) {
-  let tracks_id = []
-  let maxq = 100;
-
-  for(let off = 0; off <= total; off += maxq) {
-    spotifyApi.getPlaylistTracks(user_id, playlist_id, {
-      limit: maxq,
-      offset: off
-    }, function(error, data) {
-      let value = data.items;
-      for(tracks of value) {
-        tracks_id.push("spotify:track:" + tracks.track.id);
-      }
-    });
-  }
-  return tracks_id;
-}
-
-function getSavedPlaylists(error, data) {
-  if(error) { started = false; return; }
-
-  let maxplaylists = data.total;
-  user_array.total += maxplaylists;
-
-  if(maxplaylists == 0) {
-    show("playlists", playlists_array);
-    started = false;
-    contentDiv.style.display = "block";
-    footerDiv.style.display = "block";
-  }
-
-  for(let off = 0; off <= maxplaylists; off += maxquery) {
-    spotifyApi.getUserPlaylists({
-      limit: maxquery,
-      offset: off
-    }, function(error, data) {
-      let value = data.items;
-      let idx = off;
-
-      for(play of value) {
-        playlists_array.push({
-          type: "playlist",
-          export: true,
-          index: idx,
-          name: play.name,
-          public: play.public,
-          collaborative: play.collaborative,
-          id: play.id,
-          img: (play.images[0]) ? play.images[0].url : "",
-          owner: play.owner.id,
-          tracks: (play.owner.id.indexOf("spotify") !== -1) ? [] : getTracks(play.owner.id, play.id, play.tracks.total)
-        });
-
-        playlists_array.sort(function(a, b) {
-          return a.index - b.index;
-        });
-
-        idx++;
-        updateBar();
-
-        if(playlists_array.length == maxplaylists) {
-          show("playlists", playlists_array);
-          started = false;
-          contentDiv.style.display = "block";
-          footerDiv.style.display = "block";
-        }
-      }
-    });
-  }
-}
-
-function getSavedArtists(error, data) {
-  if(error) { started = false; return; }
-
-  let maxartists = data.artists.total;
-  user_array.total += maxartists;
-
-  if(maxartists == 0) {
-    show("artists", artists_array);
-    startCheck(4);
-  }
-
-  for(let off = 0; off <= maxartists; off += maxquery) {
-    spotifyApi.getFollowedArtists({
-      limit: maxquery,
-      offset: off
-    }, function(error, data) {
-      let value = data.artists.items;
-      let idx = off;
-
-      for(art of value) {
-        artists_array.push({
-          type: "artist",
-          export: true,
-          name: art.name,
-          img: art.images[0].url,
-          id: art.id
-        });
-
-        artists_array.sort(function(a, b) {
-          return a.index - b.index;
-        });
-
-        idx++;
-        updateBar();
-
-        if(artists_array.length == maxartists) {
-          show("artists", artists_array);
-          startCheck(4);
-        }
-      }
-    });
-  }
-}
-
-function updateBar() {
-  user_array.start++;
-  let divide = ((user_array.start/user_array.total) * 100).toFixed(2) + "%";
-  percentDiv[0].style.width = divide;
-  percentDiv[0].innerHTML = divide;
-}
-
-function show(id, array) {
+function showType(id, array) {
   let div = "";
   for(let e = 0; e < array.length; e++) {
     let element = array[e];
@@ -409,7 +169,7 @@ function show(id, array) {
     div += '\
     <table width="100%" class="zz">\
       <tr>\
-        <td style="vertical-align: middle" rowspan="2" width="1%"><img id="' + id[2] + e + '"  onclick="selectOption(this)" src="img/add.png" onmouseover="changeOver(this, 1)" onmouseout="changeOver(this, 0)" width="24px" height="24px" style="cursor:pointer"></td>\
+        <td style="vertical-align: middle" rowspan="2" width="1%"><img id="' + id[2] + e + '"  onclick="selectOption(this)" src="img/' + ((element.export) ? "add" : "remove") + '.png" onmouseover="changeOver(this, ' + element.export + ')" onmouseout="changeOver(this, ' + !element.export + ')" width="24px" height="24px" style="cursor:pointer"></td>\
         <td rowspan="2" width="1%"><img ' + ((element.type != 'artist') ? 'class="square"': '') + ' width="48px" height="48px" src="' + element.img + '"></td>\
         <td><a href="' + link +'">' + element.name + '</a></td>\
       </tr>\
@@ -425,8 +185,9 @@ function show(id, array) {
       </tr>\
     </table>';
   }
+
   document.getElementById("p1_" + id).innerHTML = div;
-  document.getElementById("p1_total" + id).innerHTML = "Total " + id + ": " + array.length;
+  document.getElementById("p1_total" + id).innerHTML = "Total " + id + ": " + spliceArray(array, 1).length;
 }
 
 function changeOver(parent, id) {
@@ -475,131 +236,76 @@ function selectOption(parent, change = -1) {
   document.getElementById("p1_total" + type[1]).innerHTML = "Total " + type[1] + ": " + spliceArray(array, 1, "id").length;
 }
 
+function updateBar(add = 1) {
+  if((user_array.start + add) <= user_array.total) user_array.start += add;
+  else user_array.start = user_array.total;
+  
+  let divide = ((user_array.start/user_array.total) * 100).toFixed(2) + "%";
+  percentDiv[0].style.width = divide;
+  percentDiv[0].innerHTML = divide;
+}
+
 function uploadBar(index_length, cons) {
   if(!started) return;
-  let divide = (((index_length + 1)/(user_array.total + 1)) * 100).toFixed(2);
-  if(divide >= 100.00) {
-    divide = 100.00.toFixed(2);
+  let divide = ((index_length + 1)/(user_array.total + 1)) * 100;
+  if(divide >= 100) {
+    divide = 100;
     document.getElementById("convert").innerHTML = "Send Here";
   }
 
-  percentDiv[1].style.width = divide + "%";
-  percentDiv[1].innerHTML = (divide > 0) ? (divide + "%") : "";
+  percentDiv[1].style.width = divide.toFixed(2) + "%";
+  percentDiv[1].innerHTML = (divide > 0) ? (divide.toFixed(2) + "%") : "";
 
   let div = document.getElementById("p2_console").innerHTML;
-  div = '<span class="cc">' + ((divide < 100.00) ? cons : 'Finished. 100%') + '</span><br>' + div;
+  div = '<span class="cc">' + ((divide < 100) ? cons : 'Finished. 100%') + '</span><br>' + div;
   document.getElementById("p2_console").innerHTML = div;
 }
 
-function startLoop(id = 0, index = 0) {
-  if(!started) {
-    uploadBar(0, "Stopped.")
-    return;
-  }
+jsonLabels[1].addEventListener('click', exportJSON);
 
-  let data_array = [
-    ["addToMySavedTracks", songs_array, "songs", 50, "id"],
-    ["addToMySavedAlbums", albums_array, "albums", 50, "id"],
-    ["followArtists", artists_array, "artists", 50, "id"],
-    ["followPlaylist", getFromArray(playlists_array, "owner", user_array.id), "playlist", 1, ""],
-    ["createPlaylist", getFromArray(playlists_array, "owner", user_array.id, false), "playlist", 1, ""]
-  ];
+document.forms[0].addEventListener('change', function( evt ) {
+  let file = document.getElementById('upload').files[0];
+  if(started) return;
+  if(!file) return;
+  started = true;
 
-  if(id >= data_array.length) {
-    uploadBar(user_array.total, "");
+  let reader = new FileReader();
+
+  jsonLabels[0].innerText = file.name;
+
+  let dot = file.name.lastIndexOf(".");
+  let extension = file.name.substr(dot + 1);
+  if(dot == -1 || extension != "json") {
     started = false;
+    percentDiv[0].style.background = "#FF0000";
+    percentDiv[0].style.width = "100.00%";
+    percentDiv[0].innerHTML = "The file isn't JSON.";
     return;
   }
 
-  let da = data_array[id];
-  sendData(da[0], da[1], da[2], id, index, da[3], da[4]);
-}
+  user_array = [];
+  //other_array = [];
+  songs_array = [];
+  albums_array = [];
+  artists_array = [];
+  playlists_array = [];
 
-function sendData(parent, array_data, type, id, index, limit, get_t) {
-  let array = spliceArray(array_data, limit, get_t);
-  if(array.length == 0) {
-    id++;
-    startLoop(id, 0);
-    return;
-  }
-  let data = array[index];
-  let len = data.length;
+  document.getElementById("p1_birth").innerHTML = "";
+  document.getElementById("p1_email").innerHTML = "";
+  document.getElementById("p1_name").innerHTML = "Get Infos from this Account: ";
+  document.getElementById("p1_img").src = "img/noimg.jpg";
+  document.getElementById("p1_songs").innerHTML = "";
+  document.getElementById("p1_albums").innerHTML = "";
+  document.getElementById("p1_artists").innerHTML = "";
+  document.getElementById("p1_playlists").innerHTML = "";
 
-  let obj_array = [
-    { ids: data },
-    { ids: data },
-    [ data ],
-    { ownerId: data.owner, playlistId: data.id, public: data.public },
-    { userId: other_array.id, public: data.public, name: data.name, collaborative: data.collaborative }
-  ];
+  percentDiv[0].innerHTML = "";
+  percentDiv[0].style.width = "0%";
+  percentDiv[0].style.background = "#1db954";
 
-  spotifyApi[parent](obj_array[id], function(get_error, get_data) {
-    if(get_error) {
-      uploadBar(0, "Error. Check the browser console.");
-      started = false;
-      return;
-    }
+  footerDiv.style.display = "none";
+  contentDiv.style.display = "none";
 
-    uploadBar(user_array.progress, ("Added " + ((len == undefined) ? data.name : len) + " " + type));
-    user_array.progress += (len == undefined) ? 1 : len;
-
-    if(data.tracks) {
-      let arr = spliceArray(data.tracks);
-      let playlist_id = get_data.id;
-      for(track of arr) {
-        spotifyApi.addTracksToPlaylist(other_array.id, playlist_id, track);
-      }
-    }
-
-    index++;
-
-    if(index < array.length) startLoop(id, index);
-    else {
-      id++;
-      startLoop(id, 0);
-    }
-  });
-}
-
-function spliceArray(arr, limit = 100, get = "") {
-  let result = [];
-  let array = [];
-  for(let a of arr) {
-    if(!a.export && a.export != undefined) continue;
-    array.push((get.length > 0) ? a[get] : a);
-  }
-  let len = array.length;
-  for(let s = 0; s < len; s += limit) {
-    let spliced = [];
-    if(limit == 1) {
-      spliced = array[s];
-    } else {
-      for(let p = s; p < (s+limit); p++) {
-        if(p >= len) break;
-        spliced.push(array[p]);
-      }
-    }
-    result.push(spliced);
-  }
-  return result;
-}
-
-function getFromArray(array, obj, equal, other = true) {
-  let result = [];
-  for(let arr of array) {
-    if(arr[obj] != equal && !other) continue;
-    if(arr[obj] == equal && other) continue;
-    result.push(arr);
-  }
-  return result;
-}
-
-function resizeBD() {
-  let bd_array = document.getElementsByClassName("bd");
-  let h = window.innerHeight;
-  for(let bd of Array.from(bd_array)) {
-    bd.style.height = (h - 450) + "px";
-  }
-}
-
-window.onresize = resizeBD;
+  reader.onload = (function() { return (e) => { loadJSON(JSON.parse(e.target.result)) }})(file);
+  reader.readAsText(file);
+});
