@@ -30,4 +30,4 @@ You can choose which item to export and which not. You can also *stop* the proce
 3. Click **Export JSON** to save the JSON file of that account.
 - ### Upload JSON
 1. Click on **Upload JSON** and select the JSON file with the account informations.
-2. If you want to export this JSON file into another account, go to **How to use** and follow point number 6.
+2. If you want to export this JSON file into another account, go to [**How to use**](https://github.com/sasopenna/spotify-account-export/blob/master/README.md#how-to-use) and follow point number 6.
