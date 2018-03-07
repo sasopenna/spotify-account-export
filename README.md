@@ -27,7 +27,9 @@ You can choose which item to export and which not. You can also *stop* the proce
 - ### Export JSON
 1. Login into the **Spotify** account you want to export. [(here)](https://accounts.spotify.com/it-IT/login)
 2. Go to [this](https://developer.spotify.com/web-api/console/get-current-user/token?scope=user-read-private&scope=user-read-birthdate&scope=user-read-email&scope=playlist-read-private&scope=playlist-read-collaborative&scope=playlist-modify-public&scope=playlist-modify-private&scope=user-library-read&scope=user-library-modify&scope=user-follow-read&scope=user-follow-modify&scope=user-top-read&scope=user-read-playback-state&scope=user-read-recently-played&scope=user-read-currently-playing&scope=user-modify-playback-state) link and click **GET OAUTH TOKEN**, allow **everything** and copy the token. 
-3. Click **Export JSON** to save the JSON file of that account.
+3. Paste the token into the field under **Get Infos from this Account** in the **Spotify Account Export** site.
+4. Press *ENTER* to initialize the informations fetching process.
+5. Once it's finished, click **Export JSON** to save the JSON file of that account.
 - ### Upload JSON
 1. Click on **Upload JSON** and select the JSON file with the account informations.
 2. If you want to export this JSON file into another account, go to [**How to use**](https://github.com/sasopenna/spotify-account-export/blob/master/README.md#how-to-use) and follow point number 6.
