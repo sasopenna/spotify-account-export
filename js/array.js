@@ -30,8 +30,8 @@ function getFromArray(array, obj, equal, other = true) {
   return result;
 }
 
-function sortArray(array) {
+function sortArray(array, id) {
   array.sort(function(a, b) {
-    return a.index - b.index;
+    return a.id - b.id;
   });
 }
