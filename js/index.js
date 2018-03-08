@@ -6,6 +6,10 @@ let percentDiv = [
   document.getElementById("p1_bar"),
   document.getElementById("p2_bar")
 ];
+let searchImg = [
+  document.getElementById("p1_search"),
+  document.getElementById("p2_search")
+];
 let jsonLabels = document.getElementsByClassName("upload");
 let contentDiv = document.getElementById("content");
 let footerDiv = document.getElementById("footer");
@@ -13,7 +17,79 @@ let footerDiv = document.getElementById("footer");
 getAuth[0].value = token;
 getAuth[0].addEventListener("keydown", function(e) {
   if(e.keyCode != 13) return;
+  getP1informations();
+});
+searchImg[0].addEventListener("click", getP1informations);
+
+getAuth[1].addEventListener("keydown", function(e) {
+  if(e.keyCode != 13) return;
+  getP2informations();
+});
+searchImg[1].addEventListener("click", getP2informations);
+
+function getP2informations() {
   if(started) return;
+  if(!Object.keys(user_array).length) {
+    searchImg[1].className = "search";
+    percentDiv[1].style.background = "#FF0000";
+    percentDiv[1].style.width = "100%";
+    percentDiv[1].innerHTML = "You need to insert the first account.";
+    return;
+  }
+  document.getElementById("p2_birth").innerHTML = "";
+  document.getElementById("p2_email").innerHTML = "";
+  document.getElementById("p2_name").innerHTML = "Send Infos to this Account: ";
+  document.getElementById("p2_img").src = "img/noimg.jpg";
+  document.getElementById("p2_console").innerHTML = "";
+
+  percentDiv[1].innerHTML = "";
+  percentDiv[1].style.width = "0%";
+  percentDiv[1].style.background = "#1db954";
+
+  started = true;
+  searchImg[1].className = "searching";
+
+  spotifyApi.setAccessToken(getAuth[1].value);
+  spotifyApi.getMe(function(error, data) {
+    searchImg[1].className = "search";
+
+    if(error) {
+      percentDiv[1].style.background = "#FF0000";
+      percentDiv[1].style.width = "100%";
+      percentDiv[1].innerHTML = "Make sure this OAuth token is correct.";
+      started = false;
+      return;
+    }
+
+    let user = data;
+    other_array = user;
+
+    if(user.id == user_array.id) {
+      percentDiv[1].style.background = "#FF0000";
+      percentDiv[1].style.width = "100%";
+      percentDiv[1].innerHTML = "Can't put the same account of the first one.";
+      started = false;
+      return;
+    }
+
+    document.getElementById("p2_birth").innerHTML = "Birthday: " + user.birthdate;
+    document.getElementById("p2_email").innerHTML = "E-mail: " + user.email;
+    document.getElementById("p2_name").innerHTML = 'Send Infos to this Account: <a href="' + user.external_urls.spotify + '">' + ((user.display_name != null) ? user.display_name : user.id) + '</a>';
+    document.getElementById("p2_img").src = (user.images.length) ? user.images[0].url : "img/noimg.jpg";
+
+    otheruser = true;
+    started = false;
+  });
+}
+
+function getP1informations() {
+  if(started) return;
+  if(!getAuth[0].value.length) {
+    percentDiv[0].style.background = "#FF0000";
+    percentDiv[0].style.width = "100%";
+    percentDiv[0].innerHTML = "Insert an OAuth Token.";
+    return;
+  }
 
   started = true;
   otheruser = false;
@@ -47,64 +123,14 @@ getAuth[0].addEventListener("keydown", function(e) {
   percentDiv[1].style.width = "0%";
   percentDiv[1].style.background = "#1db954";
 
+  searchImg[0].className = "searching";
+
   footerDiv.style.display = "none";
   contentDiv.style.display = "none";
   spotifyApi.setAccessToken(token);
 
   startCheck();
-});
-
-getAuth[1].addEventListener("keydown", function(e) {
-  if(e.keyCode != 13) return;
-  if(started) return;
-  if(!Object.keys(user_array).length) {
-    percentDiv[1].style.background = "#FF0000";
-    percentDiv[1].style.width = "100%";
-    percentDiv[1].innerHTML = "You need to insert the first account.";
-    return;
-  }
-  document.getElementById("p2_birth").innerHTML = "";
-  document.getElementById("p2_email").innerHTML = "";
-  document.getElementById("p2_name").innerHTML = "Send Infos to this Account: ";
-  document.getElementById("p2_img").src = "img/noimg.jpg";
-  document.getElementById("p2_console").innerHTML = "";
-
-  percentDiv[1].innerHTML = "";
-  percentDiv[1].style.width = "0%";
-  percentDiv[1].style.background = "#1db954";
-
-  started = true;
-
-  spotifyApi.setAccessToken(getAuth[1].value);
-  spotifyApi.getMe(function(error, data) {
-    if(error) {
-      percentDiv[1].style.background = "#FF0000";
-      percentDiv[1].style.width = "100%";
-      percentDiv[1].innerHTML = "Make sure this OAuth token is correct.";
-      started = false;
-      return;
-    }
-
-    let user = data;
-    other_array = user;
-
-    if(user.id == user_array.id) {
-      percentDiv[1].style.background = "#FF0000";
-      percentDiv[1].style.width = "100%";
-      percentDiv[1].innerHTML = "Can't put the same account of the first one.";
-      started = false;
-      return;
-    }
-
-    document.getElementById("p2_birth").innerHTML = "Birthday: " + user.birthdate;
-    document.getElementById("p2_email").innerHTML = "E-mail: " + user.email;
-    document.getElementById("p2_name").innerHTML = 'Send Infos to this Account: <a href="' + user.external_urls.spotify + '">' + ((user.display_name != null) ? user.display_name : user.id) + '</a>';
-    document.getElementById("p2_img").src = (user.images.length) ? user.images[0].url : "img/noimg.jpg";
-
-    otheruser = true;
-    started = false;
-  });
-});
+}
 
 document.getElementById("convert").addEventListener("click", function(e) {
   if(!otheruser) return;
@@ -127,6 +153,7 @@ document.getElementById("convert").addEventListener("click", function(e) {
 
 function gotStats(error, data) {
   if(error) {
+    searchImg[0].className = "search";
     percentDiv[0].style.background = "#FF0000";
     percentDiv[0].style.width = "100%";
     percentDiv[0].innerHTML = "Make sure this OAuth token is correct.";
@@ -162,7 +189,7 @@ function gotStats(error, data) {
 }
 
 function showType(id, array) {
-  let div = "";
+  let div = "", total = 0;
   for(let e = 0; e < array.length; e++) {
     let element = array[e];
     let link = 'https://open.spotify.com/' + ((element.type !== "playlist") ? (element.type + '/' + element.id) : ('user/' + element.owner + '/' + element.type + '/' + element.id));
@@ -184,10 +211,11 @@ function showType(id, array) {
     div+='</td>\
       </tr>\
     </table>';
+    if(element.export) total++;
   }
 
   document.getElementById("p1_" + id).innerHTML = div;
-  document.getElementById("p1_total" + id).innerHTML = "Total " + id + ": " + spliceArray(array, 1).length;
+  document.getElementById("p1_total" + id).innerHTML = "Total " + id + ": " + total;
 }
 
 function changeOver(parent, id) {
@@ -239,7 +267,7 @@ function selectOption(parent, change = -1) {
 function updateBar(add = 1) {
   if((user_array.start + add) <= user_array.total) user_array.start += add;
   else user_array.start = user_array.total;
-  
+
   let divide = ((user_array.start/user_array.total) * 100).toFixed(2) + "%";
   percentDiv[0].style.width = divide;
   percentDiv[0].innerHTML = divide;
@@ -263,9 +291,13 @@ function uploadBar(index_length, cons) {
 
 jsonLabels[1].addEventListener('click', exportJSON);
 
-document.forms[0].addEventListener('change', function( evt ) {
+document.forms[0].addEventListener('change', function(evt) {
   let file = document.getElementById('upload').files[0];
-  if(started) return;
+  if(started) {
+    document.getElementById('upload').value = "";
+    jsonLabels[0].innerText = "Upload JSON";
+    return;
+  }
   if(!file) return;
   started = true;
 
