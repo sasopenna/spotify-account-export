@@ -75,9 +75,11 @@ div.bd {
   outline: 0;
 }
 .gb {
-  text-transform: capitalize;
   padding-top: 20px;
   padding-bottom: 10px;
+}
+p {
+  text-transform: capitalize;
 }
 input {
   font-family: Roboto, Arial, sans-serif;
@@ -144,16 +146,45 @@ a.dark:hover {
   color: #124b23;
   cursor: pointer;
 }
-
 input[type="file"] {
   display: none;
 }
 .upload {
   text-align:center;
   width: 200px;
+  background-color: transparent;
   border: 1px solid #1db954;
   display: inline-block;
   padding: 6px 12px;
   font-size: 8pt;
   cursor: pointer;
 }
+.upload:hover {
+  background-color: #1db954;
+  border: 1px solid #1b7135;
+}
+
+img.search {
+  content: url("../img/search.png");
+  background-repeat: no-repeat;
+  border-radius: 0%;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+img.searching {
+  content: url("../img/searching.png");
+  background-repeat: no-repeat;
+  border-radius: 0%;
+  width: 16px;
+  height: 16px;
+  -webkit-animation:spin 1s linear infinite;
+  -moz-animation:spin 1s linear infinite;
+  animation:spin 1s linear infinite;
+  cursor: default;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
