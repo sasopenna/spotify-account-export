@@ -25,6 +25,7 @@ function startCheck(type = 0) {
 
 function getLength(error, data) {
   if(error) {
+    searchImg[0].className = "search";
     percentDiv[0].style.background = "#FF0000";
     percentDiv[0].style.width = "100.00%";
     percentDiv[0].innerHTML = "There was an error. Try again.";
@@ -46,6 +47,7 @@ function getLength(error, data) {
 
 function getSaved(off) {
   if(CHECK_ID >= CHECK_LIMIT) {
+    searchImg[0].className = "search";
     started = false;
     contentDiv.style.display = "block";
     footerDiv.style.display = "block";
@@ -76,6 +78,7 @@ function getSaved(off) {
     offset: off
   }, function(error, data) {
     if(error) {
+      searchImg[0].className = "search";
       percentDiv[0].style.background = "#FF0000";
       percentDiv[0].style.width = "100.00%";
       percentDiv[0].innerHTML = "There was an error. Try again.";
@@ -84,38 +87,37 @@ function getSaved(off) {
     }
 
     let value = (check != 2) ? data.items : data.artists.items;
-    let index = off;
 
     for(val of value) {
-      array.push({
+      let obj = {
         type: get_type,
-        export: main_array[check],
-      });
+        export: main_array[check]
+      };
 
       switch(CHECK_ID) {
         case _TRACKS:
-          array[index].name = val.track.name;
-          array[index].id = val.track.id;
-          array[index].img = val.track.album.images[0].url;
+          obj.name = val.track.name;
+          obj.id = val.track.id;
+          obj.img = (val.track.album.images[0]) ? val.track.album.images[0].url : "img/noimg.jpg";
           break;
         case _ALBUMS:
-          array[index].name = val.album.name;
-          array[index].id = val.album.id;
-          array[index].img = val.album.images[0].url;
+          obj.name = val.album.name;
+          obj.id = val.album.id;
+          obj.img = (val.album.images[0]) ? val.album.images[0].url : "img/noimg.jpg";
           break;
         case _ARTISTS:
-          array[index].name = val.name;
-          array[index].id = val.id;
-          array[index].img = val.images[0].url;
+          obj.name = val.name;
+          obj.id = val.id;
+          obj.img = (val.images[0]) ? val.images[0].url : "img/noimg.jpg";
           break;
         case _PLAYLISTS:
-          array[index].name = val.name,
-          array[index].public = val.public,
-          array[index].collaborative = val.collaborative,
-          array[index].id = val.id,
-          array[index].img = (val.images[0]) ? val.images[0].url : "",
-          array[index].owner = val.owner.id,
-          array[index].tracks = (val.owner.id != user_array.id) ? [] : getTracks(val.owner.id, val.id, val.tracks.total)
+          obj.name = val.name;
+          obj.public = val.public;
+          obj.collaborative = val.collaborative;
+          obj.id = val.id;
+          obj.img = (val.images[0]) ? val.images[0].url : "img/noimg.jpg";
+          obj.owner = val.owner.id;
+          obj.tracks = (val.owner.id != user_array.id) ? [] : getTracks(val.owner.id, val.id, val.tracks.total);
           break;
       }
 
@@ -124,10 +126,10 @@ function getSaved(off) {
         for(artist of artists_array.artists) {
           art.push(artist.name);
         }
-        array[index].artists = art;
+        obj.artists = art;
       }
 
-      index++;
+      array.push(obj);
     }
 
     updateBar(value.length);
