@@ -9,7 +9,7 @@
   <body>
     <div id="header">
       <div class="bigname">
-        <table width="100%">
+        <table width="100%" cellpadding="0" cellspacing="0">
           <tr style="text-align:left; font-size: 12pt; vertical-align:middle; line-height: 25px">
             <td><img src="img/icon.png" width="24px" height="24px"></td>
             <td width="100%">Spotify Account Export</td>
@@ -36,7 +36,15 @@
           </tr>
           <tr><td class="cc" id="p1_birth"></td></tr>
           <tr><td class="cc" id="p1_email"></td></tr>
-          <tr><td class="cc">Token: <input type="text" id="p1_auth"></td></tr>
+          <tr>
+            <td class="cc">
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td class="cc" width="345px">Token: <input type="text" id="p1_auth"></td>
+                  <td class="cc" style="text-align:left"><img class="search" id="p1_search"></td>
+              </table>
+            </td>
+          </tr>
           <tr>
             <td colspan="2">
               <div class="progress">
@@ -90,7 +98,15 @@
             <td rowspan="4" style="width:300px;"><div id="p2_console" style="overflow-y: scroll; height:72px; width:100%"></div></td>
     		  </tr>
           <tr><td class="cc" id="p2_email"></td></tr>
-          <tr><td class="cc">Token: <input type="text" id="p2_auth"></td></tr>
+          <tr>
+            <td class="cc">
+              <table width="100%">
+                <tr>
+                  <td class="cc" width="345px">Token: <input type="text" id="p2_auth"></td>
+                  <td class="cc" style="text-align:left"><img class="search" id="p2_search"></td>
+              </table>
+            </td>
+          </tr>
           <tr>
             <td colspan="2">
               <div class="progress">
