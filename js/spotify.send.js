@@ -23,6 +23,13 @@ function startLoop(id = 0, index = 0) {
 }
 
 function sendData(parent, array_data, type, id, index, limit, get_t) {
+  if(!otheruser || !other_array.id) {
+    percentDiv[1].style.background = "#FF0000";
+    percentDiv[1].style.width = "100%";
+    percentDiv[1].innerHTML = "Insert this user credentials.";
+    started = false;
+    return;
+  }
   let array = spliceArray(array_data, limit, get_t);
   if(array.length == 0) {
     id++;
