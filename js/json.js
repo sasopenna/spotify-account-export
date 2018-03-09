@@ -42,13 +42,13 @@ function loadJSON(obj) {
   user_array.tot_arr = [];
   user_array.progress = 0;
 
-  document.getElementById("p1_birth").innerHTML = "Birthday: " + user_array.birthdate;
+  document.getElementById("p1_birth").innerHTML = "Birthday: " + getBirthday(user_array.birthdate);
   document.getElementById("p1_email").innerHTML = "E-mail: " + user_array.email;
   document.getElementById("p1_name").innerHTML = '<a href="' + user_array.external_urls.spotify + '">' + ((user_array.display_name != null) ? user_array.display_name : user_array.id) + '</a>';
   document.getElementById("p1_img").src = (user_array.images.length) ? user_array.images[0].url : "img/noimg.png";
-  
+
   document.getElementById('upload').value = "";
-  
+
   showPage(4, now_page);
 }
 

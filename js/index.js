@@ -59,7 +59,7 @@ function getP2informations() {
       return;
     }
 
-    document.getElementById("p2_birth").innerHTML = "Birthday: " + user.birthdate;
+    document.getElementById("p2_birth").innerHTML = "Birthday: " + getBirthday(user.birthdate);
     document.getElementById("p2_email").innerHTML = "E-mail: " + user.email;
     document.getElementById("p2_name").innerHTML = '<a href="' + user.external_urls.spotify + '">' + ((user.display_name != null) ? user.display_name : user.id) + '</a>';
     document.getElementById("p2_img").src = (user.images.length) ? user.images[0].url : "img/noimg.png";
@@ -71,6 +71,12 @@ function getP2informations() {
     document.getElementById("convert").innerHTML = SEND_MSG;
     document.getElementById("p2_infos").style.display = "block";
   });
+}
+
+function getBirthday(string) {
+  let date = string.split("-");
+  let months_array = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  return (date[2] + " " + months_array[parseInt(date[1]) - 1] + " " + date[0]);
 }
 
 function getP1informations() {
@@ -147,7 +153,7 @@ function gotStats(error, data) {
   user_array.progress = 0;
   getAuth[0].value = token;
 
-  document.getElementById("p1_birth").innerHTML = "Birthday: " + user_array.birthdate;
+  document.getElementById("p1_birth").innerHTML = "Birthday: " + getBirthday(user_array.birthdate);
   document.getElementById("p1_email").innerHTML = "E-mail: " + user_array.email;
   document.getElementById("p1_name").innerHTML = '<a href="' + user_array.external_urls.spotify + '">' + ((user_array.display_name != null) ? user_array.display_name : user_array.id) + '</a>';
   document.getElementById("p1_img").src = (user_array.images.length) ? user_array.images[0].url : "img/noimg.png";
