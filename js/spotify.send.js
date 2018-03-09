@@ -24,9 +24,7 @@ function startLoop(id = 0, index = 0) {
 
 function sendData(parent, array_data, type, id, index, limit, get_t) {
   if(!otheruser || !other_array.id) {
-    percentDiv[1].style.background = "#FF0000";
-    percentDiv[1].style.width = "100%";
-    percentDiv[1].innerHTML = "Insert this user credentials.";
+    setBar(1, "Insert this user credentials.", 1);
     started = false;
     return;
   }

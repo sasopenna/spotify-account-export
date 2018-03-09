@@ -3,9 +3,7 @@ function loadJSON(obj) {
 
   //obj name may be null
   if(/*!obj.name || */!obj.id || !obj.email || !obj.birthdate || !obj.imgs || !obj.url || !obj.songs || !obj.albums || !obj.artists || !obj.playlists) {
-    percentDiv[0].style.background = "#FF0000";
-    percentDiv[0].style.width = "100.00%";
-    percentDiv[0].innerHTML = "Invalid JSON file.";
+    alert("Invalid JSON file");
     return;
   }
 
@@ -43,28 +41,25 @@ function loadJSON(obj) {
   user_array.start = 0;
   user_array.tot_arr = [];
   user_array.progress = 0;
-  getAuth[0].value = "";
 
   document.getElementById("p1_birth").innerHTML = "Birthday: " + user_array.birthdate;
   document.getElementById("p1_email").innerHTML = "E-mail: " + user_array.email;
-  document.getElementById("p1_name").innerHTML = 'Get Infos from this Account: <a href="' + user_array.external_urls.spotify + '">' + ((user_array.display_name != null) ? user_array.display_name : user_array.id) + '</a>';
-  document.getElementById("p1_img").src = (user_array.images.length) ? user_array.images[0].url : "img/noimg.jpg";
-
-  percentDiv[0].style.background = "#1db954";
-  percentDiv[0].style.width = "100.00%";
-  percentDiv[0].innerHTML = "100.00%";
-
-  contentDiv.style.display = "block";
-  footerDiv.style.display = "block";
+  document.getElementById("p1_name").innerHTML = '<a href="' + user_array.external_urls.spotify + '">' + ((user_array.display_name != null) ? user_array.display_name : user_array.id) + '</a>';
+  document.getElementById("p1_img").src = (user_array.images.length) ? user_array.images[0].url : "img/noimg.png";
+  
+  document.getElementById('upload').value = "";
+  
+  showPage(4, now_page);
 }
 
 function exportJSON() {
-  if(started) return;
+  if(started) {
+	  alert("You can't do this now.");
+	  return;
+  }
   if(!Object.keys(user_array).length) {
+	alert("There is nothing to export.");
     started = false;
-    percentDiv[0].style.background = "#FF0000";
-    percentDiv[0].style.width = "100.00%";
-    percentDiv[0].innerHTML = "There is nothing to export.";
     return;
   }
   let data = {
