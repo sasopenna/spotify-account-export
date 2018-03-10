@@ -25,9 +25,18 @@
               <td colspan="2">Choose your Export Method</td>
             </tr>
             <tr>
-              <td><label class="upload" onclick="showPage(2, 1)">OAuth Login</label></td>
-              <td><label class="upload" onclick="showPage(3, 1)">Import JSON</label></td>
+              <td>
+                <label class="upload" onclick="showPage(2, 1)" onmouseleave="changeMsg('export_msg','')" onmouseover="changeMsg('export_msg', 'Choose this if you want to export infos with OAuth method.<br>This is more secure because the informations are updated.')">
+                  OAuth Login
+                </label>
+              </td>
+              <td>
+                <label class="upload" onclick="showPage(3, 1)" onmouseleave="changeMsg('export_msg','')" onmouseover="changeMsg('export_msg', 'Choose this if you want to export infos with JSON method.<br>This is less secure because the informations can be old.<br>You <u>MUST</u> have a JSON file previously exported.')">
+                  Import JSON
+                </label>
+              </td>
             </tr>
+            <tr><td colspan="2" style="font-size: 20pt" id="export_msg"></td></tr>
           </tbody>
         </table>
       </div>
@@ -169,20 +178,28 @@
       </div>
     </div>
     <div id="footer">
-      <a href="https://github.com/sasopenna/spotify-account-export" class="dark">Guide</a>
-      <a href="https://github.com/JMPerez/spotify-web-api-js" class="dark">API</a>
-      <a href="https://accounts.spotify.com/login" class="dark">Login</a>
-      <a href="https://spotify.com" class="dark">Spotify</a>
+      <span style="display:inline-flex; float:left">
+        <a href="http://github.com/sasopenna/spotify-account-export"><img class="github"></a>
+        <div class="morbid">Salvatore Penna</div>
+      </span>
+
+      <span style="float:right; padding-right: 4px;">
+        <a href="https://github.com/sasopenna/spotify-account-export" class="dark">Guide</a>
+        <a href="https://github.com/JMPerez/spotify-web-api-js" class="dark">API</a>
+        <a href="https://accounts.spotify.com/login" class="dark">Login</a>
+        <a href="https://spotify.com" class="dark">Spotify</a>
+      </span>
     </div>
 
     <script src="js/spotify.conf.js"></script>
     <script src="js/spotify.getsaved.js"></script>
     <script src="js/spotify.send.js"></script>
+
+    <script src="js/window.js"></script>
     <script src="js/bar.js"></script>
     <script src="js/pages.js"></script>
     <script src="js/array.js"></script>
     <script src="js/json.js"></script>
-    <script src="js/window.js"></script>
     <script src="js/index.js"></script>
   </body>
 </html>
