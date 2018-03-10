@@ -17,6 +17,8 @@ div {
 
 #welcome {
   /*id = 1*/
+  overflow: auto;
+  padding-right: 15px;
   padding-top: 10px;
   position: absolute;
   text-align: center;
@@ -29,6 +31,8 @@ div {
 
 #oauthlogin {
   /*id = 2*/
+  overflow: auto;
+  padding-right: 15px;
   padding-top: 10px;
   text-align: center;
   position: absolute;
@@ -40,6 +44,8 @@ div {
 
 #jsonupload {
   /*id = 3*/
+  overflow: auto;
+  padding-right: 15px;
   padding-top: 10px;
   text-align: center;
   position: absolute;
@@ -51,6 +57,8 @@ div {
 
 #loadinfos {
   /*id = 4*/
+  overflow: auto;
+  padding-right: 15px;
   padding-top: 10px;
   text-align: center;
   position: absolute;
@@ -62,6 +70,8 @@ div {
 
 #exportpage {
   /*id = 5*/
+  overflow: auto;
+  padding-right: 15px;
   padding-top: 10px;
   text-align: center;
   position: absolute;
@@ -176,10 +186,9 @@ input:hover, input:focus {
   width: 100%;
   border-bottom: 8px solid #249747;
 }
-
 #footer {
   height: 18px;
-  background-color: #249747;
+  background-color: #39a159;
   position: fixed;
   color: #FFF;
   bottom: 0;
@@ -291,6 +300,36 @@ img.searching {
   -moz-animation: spin 1s linear infinite;
   animation: spin 1s linear infinite;
   cursor: default;
+}
+
+img.github {
+  content: url("../img/github.png");
+  background-repeat: no-repeat;
+  padding-left: 4px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  -webkit-transition: -webkit-transform .8s ease-in-out;
+  transition: transform .8s ease-in-out;
+}
+img.github:hover {
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+.morbid {
+  width: auto;
+  max-width: 0%;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: max-width 1s linear;
+  padding-top: 4px;
+  padding-left: 3px;
+  font-size: 8pt;
+}
+
+a:hover + .morbid {
+  max-width: 100%;
 }
 
 @-moz-keyframes spin {
