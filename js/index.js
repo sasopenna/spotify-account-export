@@ -22,8 +22,7 @@ searchImg[1].addEventListener("click", getP2informations);
 
 function getP2informations() {
   if (started) return;
-  //if(!Object.keys(user_array).length ) {
-  if(started == true) {
+  if(!Object.keys(user_array).length) {
     searchImg[1].className = "search";
     setBar(1, "You need to insert the first account.", 1);
     return;
@@ -255,17 +254,14 @@ function selectOption(parent, change = -1) {
     }
   }
 
-  parent.onmouseover = function() {
-    changeOver(parent, change);
-  }
-  parent.onmouseout = function() {
-    changeOver(parent, !change);
-  }
+  parent.onmouseover = function() { changeOver(parent, change); }
+  parent.onmouseout = function() { changeOver(parent, !change); }
   parent.src = (change) ? "img/add.png" : "img/remove.png";
 
   document.getElementById("p1_total" + type[1]).innerHTML = "Total " + type[1] + ": " + spliceArray(array, 1, "id").length;
 }
 
+let changeMsg = (id, text) => document.getElementById(id).innerHTML = text;
 
 document.forms[0].addEventListener('change', function(evt) {
   let file = document.getElementById('upload').files[0];
@@ -274,11 +270,6 @@ document.forms[0].addEventListener('change', function(evt) {
     return;
   }
   if (!file) return;
-  started = true;
-
-  document.forms[0].children[0].innerHTML = "Loading<br>" + file.name;
-
-  let reader = new FileReader();
 
   let dot = file.name.lastIndexOf(".");
   let extension = file.name.substr(dot + 1);
@@ -287,6 +278,11 @@ document.forms[0].addEventListener('change', function(evt) {
     alert("The file isn't JSON.");
     return;
   }
+  started = true;
+
+  document.forms[0].children[0].innerHTML = "Loading<br>" + file.name;
+
+  let reader = new FileReader();
 
   user_array = [];
   songs_array = [];
