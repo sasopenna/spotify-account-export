@@ -37,7 +37,7 @@ function adjustPages(page_id, prev_page) {
   }
 }
 
-function showPage(page_id, prev_page = 0) {
+function showPage(page_id, prev_page = 0, id = 0) {
   if (started) return;
   if (Object.keys(change_pages).length != 0) return;
   if (pages_array.length == 0) return;
@@ -59,6 +59,8 @@ function showPage(page_id, prev_page = 0) {
 
   change_pages.show = pages_array[page_id - 1];
   change_pages.hide = (prev_page != 0) ? pages_array[prev_page - 1] : undefined;
+
+  if(id == 0) pushHistory(prev_page);
 
   startFade();
 }
