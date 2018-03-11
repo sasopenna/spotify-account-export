@@ -27,12 +27,12 @@
             </tr>
             <tr>
               <td>
-                <label class="upload" onclick="showPage(2, 1)" onmouseleave="changeMsg('export_msg','')" onmouseover="changeMsg('export_msg', 'Choose this if you want to export infos with OAuth method.<br>This is more secure because the informations are updated.')">
+                <label class="upload" onclick="showPage(2)" onmouseleave="changeMsg('export_msg','')" onmouseover="changeMsg('export_msg', 'Choose this if you want to export infos with OAuth method.<br>This is more secure because the informations are updated.')">
                   OAuth Login
                 </label>
               </td>
               <td>
-                <label class="upload" onclick="showPage(3, 1)" onmouseleave="changeMsg('export_msg','')" onmouseover="changeMsg('export_msg', 'Choose this if you want to export infos with JSON method.<br>This is less secure because the informations can be old.<br>You <u>MUST</u> have a JSON file previously exported.')">
+                <label class="upload" onclick="showPage(3)" onmouseleave="changeMsg('export_msg','')" onmouseover="changeMsg('export_msg', 'Choose this if you want to export infos with JSON method.<br>This is less secure because the informations can be old.<br>You <u>MUST</u> have a JSON file previously exported.')">
                   Import JSON
                 </label>
               </td>
@@ -46,7 +46,7 @@
         <table width="100%" cellspacing="16" cellpadding="0" style="font-size: 22pt;">
           <tbody>
             <tr>
-              <td style="text-align:left" width="1%"><img class="back" onclick="showPage(1, 2)"></td>
+              <td style="text-align:left" width="1%"><img class="back" onclick="showPage(1)"></td>
               <td style="font-size: 34pt; color:#FFF; padding-right: 76px">OAuth Login</td>
             </tr>
             <tr><td colspan="2">1. <a href="https://accounts.spotify.com/login">Login</a> into your Spotify account.</td></tr>
@@ -68,7 +68,7 @@
         <table width="100%" cellspacing="16" cellpadding="0" style="font-size: 14pt; text-align:left">
           <tbody>
             <tr>
-              <td style="text-align:left" width="1%" rowspan="4"><img class="back" onclick="showPage(1, 4)"></td>
+              <td style="text-align:left" width="1%" rowspan="4"><img class="back" onclick="showPage(1)"></td>
               <td style="font-size: 34pt; color:#FFF; text-align:right" colspan="2">Export this account</td>
             </tr>
             <tr>
@@ -109,7 +109,7 @@
             </tr>
             <tr>
               <td colspan="2" style="text-align:center"><label class="upload" onclick="exportJSON()"style="font-size:16pt">Export JSON</label></td>
-              <td style="text-align:center"><label class="upload" onclick="showPage(5, 4)" style="font-size:16pt; width:300px">Export on Spotify account</label></td>
+              <td style="text-align:center"><label class="upload" onclick="showPage(5)" style="font-size:16pt; width:300px">Export on Spotify account</label></td>
             </tr>
           </tbody>
         </table>
@@ -119,7 +119,7 @@
         <table width="100%" cellspacing="16" cellpadding="0" style="font-size: 22pt; text-align:center">
           <tbody>
             <tr>
-              <td style="text-align:left" width="1%"><img class="back" onclick="showPage(1, 3)"></td>
+              <td style="text-align:left" width="1%"><img class="back" onclick="showPage(1)"></td>
               <td style="font-size: 34pt; color:#FFF; padding-right: 35px">Import JSON</td>
             </tr>
             <tr><td colspan="2">Import the JSON file</tr>
@@ -141,8 +141,8 @@
         <table width="100%" cellspacing="16" cellpadding="0" style="font-size: 22pt; text-align:center">
           <tbody>
             <tr>
-              <td style="text-align:left" width="1%"><img class="back" onclick="showPage(4, 5)"></td>
-              <td style="text-align:left" width="1%"><img class="home" onclick="showPage(1, 5)"></td>
+              <td style="text-align:left" width="1%"><img class="back" onclick="showPage(4)"></td>
+              <td style="text-align:left" width="1%"><img class="home" onclick="showPage(1)"></td>
               <td style="font-size: 34pt; color:#FFF; text-align:right" colspan="2">Export on this Spotify Account</td>
             </tr>
             <tr><td colspan="3">1. <a href="https://accounts.spotify.com/login">Login</a> into the Spotify account where you want the files to be exported.</td></tr>
@@ -162,9 +162,6 @@
                       <td rowspan="4" style="width:250px;">
                         <label id="convert" class="upload" style="width:250px; font-size: 16pt"></label>
                         <div id="p2_console" style="overflow-y: scroll; height:67px; width:100%; background-color:rgba(0,0,0,0.1)"></div>
-                        <div class="progress">
-                          <div class="bar" id="p2_bar"></div>
-                        </div>
                       </td>
                     </tr>
                     <tr><td id="p2_name"></td></tr>
@@ -172,6 +169,13 @@
                     <tr><td id="p2_email"></td></tr>
                   </tbody>
                 </table>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <div class="progress">
+                  <div class="bar" id="p2_bar"></div>
+                </div>
               </td>
             </tr>
           </tbody>

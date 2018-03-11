@@ -22,6 +22,11 @@ searchImg[1].addEventListener("click", getP2informations);
 
 function getP2informations() {
   if (started) return;
+  if (!getAuth[1].value.length) {
+    searchImg[1].className = "search";
+    setBar(1, "Insert an OAuth Token.", 1);
+    return;
+  }
   if(!Object.keys(user_array).length) {
     searchImg[1].className = "search";
     setBar(1, "You need to insert the first account.", 1);

@@ -27,8 +27,9 @@ function initPages() {
   }
 }
 
-function adjustPages(page_id, prev_page) {
+function adjustPages(page_id) {
   if (pages_array.length == 0) return;
+  let prev_page = now_page;
 
   for (let index = 0; index < pages_array.length; index++) {
     if (page_id == (index + 1)) pages_array[index].style.zIndex = 0;
@@ -37,14 +38,14 @@ function adjustPages(page_id, prev_page) {
   }
 }
 
-function showPage(page_id, prev_page = 0, id = 0) {
+function showPage(page_id, id = 0) {
   if (started) return;
   if (Object.keys(change_pages).length != 0) return;
   if (pages_array.length == 0) return;
+  let prev_page = now_page;
 
-  adjustPages(page_id, prev_page);
-
-  now_page = page_id;
+  pushHistory(now_page);
+  adjustPages(page_id);
 
   if (page_id == 1) { //home
     setBar(0, 0);
@@ -59,8 +60,8 @@ function showPage(page_id, prev_page = 0, id = 0) {
 
   change_pages.show = pages_array[page_id - 1];
   change_pages.hide = (prev_page != 0) ? pages_array[prev_page - 1] : undefined;
-
-  if(id == 0) pushHistory(prev_page);
+  
+  now_page = page_id;
 
   startFade();
 }
