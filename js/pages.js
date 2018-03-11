@@ -5,7 +5,7 @@ let pages_names = [
 ];
 let pages_array = [];
 let change_pages = [];
-let now_page;
+let now_page = 0;
 
 const SEND_MSG = "SEND HERE";
 
@@ -44,8 +44,10 @@ function showPage(page_id, id = 0) {
   if (pages_array.length == 0) return;
   let prev_page = now_page;
 
-  pushHistory(now_page);
+  if(id == 0) pushHistory(page_id);
   adjustPages(page_id);
+
+  now_page = page_id;
 
   if (page_id == 1) { //home
     setBar(0, 0);
@@ -60,8 +62,6 @@ function showPage(page_id, id = 0) {
 
   change_pages.show = pages_array[page_id - 1];
   change_pages.hide = (prev_page != 0) ? pages_array[prev_page - 1] : undefined;
-  
-  now_page = page_id;
 
   startFade();
 }

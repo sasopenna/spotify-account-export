@@ -49,7 +49,7 @@ function loadJSON(obj) {
 
   document.getElementById('upload').value = "";
 
-  showPage(4, now_page);
+  showPage(4);
 }
 
 function exportJSON() {

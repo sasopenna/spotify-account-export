@@ -65,7 +65,7 @@ function getSaved(off, _after = "") {
   if (CHECK_ID >= CHECK_LIMIT) {
     searchImg[0].className = "search";
     started = false;
-    showPage(4, now_page);
+    showPage(4);
     return;
   }
   let check = CHECK_ID - 1;

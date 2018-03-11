@@ -9,178 +9,172 @@
 
   <body>
     <!--<div id="header"></div>-->
-    <div id="content">
-      <div id="welcome">
-        <table width="100%" cellspacing="16" cellpadding="16">
-          <tbody>
-            <tr>
-              <td colspan="2"><img src="img/icon.png" width="48px"> Spotify Account Export</td>
-            </tr>
-            <tr>
-              <td colspan="2" style="font-size: 20pt">
-                With this tool you can export a Spotify account into another Spotify account.<br>
-                You can export <i>Music Library, Albums, Followed Artists and Playlists.</i>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2">Choose your Export Method</td>
-            </tr>
-            <tr>
-              <td>
-                <label class="upload" onclick="showPage(2)" onmouseleave="changeMsg('export_msg','')" onmouseover="changeMsg('export_msg', 'Choose this if you want to export infos with OAuth method.<br>This is more secure because the informations are updated.')">
-                  OAuth Login
-                </label>
-              </td>
-              <td>
-                <label class="upload" onclick="showPage(3)" onmouseleave="changeMsg('export_msg','')" onmouseover="changeMsg('export_msg', 'Choose this if you want to export infos with JSON method.<br>This is less secure because the informations can be old.<br>You <u>MUST</u> have a JSON file previously exported.')">
-                  Import JSON
-                </label>
-              </td>
-            </tr>
-            <tr><td colspan="2" style="font-size: 20pt" id="export_msg"></td></tr>
-          </tbody>
-        </table>
-      </div>
+    <div id="welcome" class="page_config">
+      <table width="100%" cellspacing="16" cellpadding="16">
+        <tbody>
+          <tr><td colspan="2"><img src="img/icon.png" width="48px"> Spotify Account Export</td></tr>
+          <tr>
+            <td colspan="2" style="font-size: 20pt">
+              With this tool you can export a Spotify account into another Spotify account.<br>
+              You can export <i>Music Library, Albums, Followed Artists and Playlists.</i>
+            </td>
+          </tr>
+          <tr><td colspan="2">Choose your Export Method</td></tr>
+          <tr>
+            <td>
+              <label class="upload" onclick="showPage(2)" onmouseleave="changeMsg('export_msg','')" onmouseover="changeMsg('export_msg', 'Choose this if you want to export infos with OAuth method.<br>This is more secure because the informations are updated.')">
+                OAuth Login
+              </label>
+            </td>
+            <td>
+              <label class="upload" onclick="showPage(3)" onmouseleave="changeMsg('export_msg','')" onmouseover="changeMsg('export_msg', 'Choose this if you want to export infos with JSON method.<br>This is less secure because the informations can be old.<br>You <u>MUST</u> have a JSON file previously exported.')">
+                Import JSON
+              </label>
+            </td>
+          </tr>
+          <tr><td colspan="2" style="font-size: 20pt" id="export_msg"></td></tr>
+        </tbody>
+      </table>
+    </div>
 
-      <div id="oauthlogin">
-        <table width="100%" cellspacing="16" cellpadding="0" style="font-size: 22pt;">
-          <tbody>
-            <tr>
-              <td style="text-align:left" width="1%"><img class="back" onclick="showPage(1)"></td>
-              <td style="font-size: 34pt; color:#FFF; padding-right: 76px">OAuth Login</td>
-            </tr>
-            <tr><td colspan="2">1. <a href="https://accounts.spotify.com/login">Login</a> into your Spotify account.</td></tr>
-            <tr><td colspan="2">2. Get OAuth Token by clicking <a href="https://developer.spotify.com/web-api/console/get-current-user/token?scope=user-read-private&scope=user-read-birthdate&scope=user-read-email&scope=playlist-read-private&scope=playlist-read-collaborative&scope=playlist-modify-public&scope=playlist-modify-private&scope=user-library-read&scope=user-library-modify&scope=user-follow-read&scope=user-follow-modify&scope=user-top-read&scope=user-read-playback-state&scope=user-read-recently-played&scope=user-read-currently-playing&scope=user-modify-playback-state">here</a> and copy it.</tr>
-            <tr><td colspan="2">3. Paste the token into the field below and press <i>ENTER<i>.</tr>
-            <tr><td colspan="2"><input type="text" id="p1_auth"><img class="search" id="p1_search"></td></tr>
-            <tr>
-              <td colspan="2">
-                <div class="progress">
-                  <div class="bar" id="p1_bar"></div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div id="oauthlogin" class="page_config">
+      <table width="100%" cellspacing="16" cellpadding="0" style="font-size: 22pt;">
+        <tbody>
+          <tr>
+            <td style="text-align:left" width="1%"><img class="back" onclick="goBack()"></td>
+            <td style="font-size: 34pt; color:#FFF; padding-right: 76px">OAuth Login</td>
+          </tr>
+          <tr><td colspan="2">1. <a href="https://accounts.spotify.com/login">Login</a> into your Spotify account.</td></tr>
+          <tr><td colspan="2">2. Get OAuth Token by clicking <a href="https://developer.spotify.com/web-api/console/get-current-user/token?scope=user-read-private&scope=user-read-birthdate&scope=user-read-email&scope=playlist-read-private&scope=playlist-read-collaborative&scope=playlist-modify-public&scope=playlist-modify-private&scope=user-library-read&scope=user-library-modify&scope=user-follow-read&scope=user-follow-modify&scope=user-top-read&scope=user-read-playback-state&scope=user-read-recently-played&scope=user-read-currently-playing&scope=user-modify-playback-state">here</a> and copy it.</tr>
+          <tr><td colspan="2">3. Paste the token into the field below and press <i>ENTER<i>.</tr>
+          <tr><td colspan="2"><input type="text" id="p1_auth"><img class="search" id="p1_search"></td></tr>
+          <tr>
+            <td colspan="2">
+              <div class="progress">
+                <div class="bar" id="p1_bar"></div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-      <div id="loadinfos">
-        <table width="100%" cellspacing="16" cellpadding="0" style="font-size: 14pt; text-align:left">
-          <tbody>
-            <tr>
-              <td style="text-align:left" width="1%" rowspan="4"><img class="back" onclick="showPage(1)"></td>
-              <td style="font-size: 34pt; color:#FFF; text-align:right" colspan="2">Export this account</td>
-            </tr>
-            <tr>
-              <td rowspan="3" style="text-align:right"><img id="p1_img" src="img/noimg.png" width="128px" height="128px"></td>
-              <td id="p1_name" width="50%"></td>
-            </tr>
-            <tr><td id="p1_birth"></td></tr>
-            <tr><td id="p1_email"></td></tr>
-            <tr>
-              <td colspan="3">
-                <table width="100%" cellspacing="0" cellpadding="0" style="font-size: 16pt; background-color: #1aa64b">
-                  <tbody>
-                    <tr>
-                      <td class="gb" width="25%">
-                        <p><img id="main0" src="img/add.png" onclick="selectOption(this)" onmouseover="changeOver(this, 1)" onmouseout="changeOver(this, 0)" class="add"> Saved Songs</p>
-                        <div style="border-left: 8px solid #1aa64b" class="bd" id="p1_songs"></div>
-                        <p id="p1_totalsongs"></p>
-                      </td>
-                      <td class="gb" width="25%">
-                        <p><img id="main1" src="img/add.png" onclick="selectOption(this)" onmouseover="changeOver(this, 1)" onmouseout="changeOver(this, 0)" class="add"> Saved Albums</p>
-                        <div class="bd" id="p1_albums"></div>
-                        <p id="p1_totalalbums"></p>
-                      </td>
-                      <td class="gb" width="25%">
-                        <p><img id="main2" src="img/add.png" onclick="selectOption(this)" onmouseover="changeOver(this, 1)" onmouseout="changeOver(this, 0)" class="add"> Saved Artists</p>
-                        <div class="bd" id="p1_artists"></div>
-                        <p id="p1_totalartists"></p>
-                      </td>
-                      <td class="gb" width="25%">
-                        <p><img id="main3" src="img/add.png" onclick="selectOption(this)" onmouseover="changeOver(this, 1)" onmouseout="changeOver(this, 0)" class="add"> Saved Playlists</p>
-                        <div class="bd" id="p1_playlists"></div>
-                        <p id="p1_totalplaylists"></p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2" style="text-align:center"><label class="upload" onclick="exportJSON()"style="font-size:16pt">Export JSON</label></td>
-              <td style="text-align:center"><label class="upload" onclick="showPage(5)" style="font-size:16pt; width:300px">Export on Spotify account</label></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div id="jsonupload" class="page_config">
+      <table width="100%" cellspacing="16" cellpadding="0" style="font-size: 22pt; text-align:center">
+        <tbody>
+          <tr>
+            <td style="text-align:left" width="1%"><img class="back" onclick="goBack()"></td>
+            <td style="font-size: 34pt; color:#FFF; padding-right: 35px">Import JSON</td>
+          </tr>
+          <tr><td colspan="2">Import the JSON file</tr>
+          <tr><td colspan="2">of an account of Spotify.</tr>
+          <tr>
+            <td colspan="2">
+              <iframe name="iframe" id="iframe" style="display:none"></iframe>
+              <form target="iframe" method="post" enctype="multipart/form-data">
+                <label for="upload" class="upload" style="font-size:16pt"></label>
+                <input name="file" type="file" id="upload">
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-      <div id="jsonupload">
-        <table width="100%" cellspacing="16" cellpadding="0" style="font-size: 22pt; text-align:center">
-          <tbody>
-            <tr>
-              <td style="text-align:left" width="1%"><img class="back" onclick="showPage(1)"></td>
-              <td style="font-size: 34pt; color:#FFF; padding-right: 35px">Import JSON</td>
-            </tr>
-            <tr><td colspan="2">Import the JSON file</tr>
-            <tr><td colspan="2">of an account of Spotify.</tr>
-            <tr>
-              <td colspan="2">
-                <iframe name="iframe" id="iframe" style="display:none"></iframe>
-                <form target="iframe" method="post" enctype="multipart/form-data">
-                  <label for="upload" class="upload" style="font-size:16pt"></label>
-                  <input name="file" type="file" id="upload">
-                </form>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div id="loadinfos" class="page_config">
+      <table width="100%" cellspacing="16" cellpadding="0" style="font-size: 14pt; text-align:left">
+        <tbody>
+          <tr>
+            <td style="text-align:left" width="1%" rowspan="4"><img class="back" onclick="goBack()"></td>
+            <td style="font-size: 34pt; color:#FFF; text-align:right" colspan="2">Export this account</td>
+          </tr>
+          <tr>
+            <td rowspan="3" style="text-align:right"><img id="p1_img" src="img/noimg.png" width="128px" height="128px"></td>
+            <td id="p1_name" width="50%"></td>
+          </tr>
+          <tr><td id="p1_birth"></td></tr>
+          <tr><td id="p1_email"></td></tr>
+          <tr>
+            <td colspan="3">
+              <table width="100%" cellspacing="0" cellpadding="0" style="font-size: 16pt; background-color: #1aa64b">
+                <tbody>
+                  <tr>
+                    <td class="gb" width="25%">
+                      <p><img id="main0" src="img/add.png" onclick="selectOption(this)" onmouseover="changeOver(this, 1)" onmouseout="changeOver(this, 0)" class="add"> Saved Songs</p>
+                      <div style="border-left: 8px solid #1aa64b" class="bd" id="p1_songs"></div>
+                      <p id="p1_totalsongs"></p>
+                    </td>
+                    <td class="gb" width="25%">
+                      <p><img id="main1" src="img/add.png" onclick="selectOption(this)" onmouseover="changeOver(this, 1)" onmouseout="changeOver(this, 0)" class="add"> Saved Albums</p>
+                      <div class="bd" id="p1_albums"></div>
+                      <p id="p1_totalalbums"></p>
+                    </td>
+                    <td class="gb" width="25%">
+                      <p><img id="main2" src="img/add.png" onclick="selectOption(this)" onmouseover="changeOver(this, 1)" onmouseout="changeOver(this, 0)" class="add"> Saved Artists</p>
+                      <div class="bd" id="p1_artists"></div>
+                      <p id="p1_totalartists"></p>
+                    </td>
+                    <td class="gb" width="25%">
+                      <p><img id="main3" src="img/add.png" onclick="selectOption(this)" onmouseover="changeOver(this, 1)" onmouseout="changeOver(this, 0)" class="add"> Saved Playlists</p>
+                      <div class="bd" id="p1_playlists"></div>
+                      <p id="p1_totalplaylists"></p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" style="text-align:center"><label class="upload" onclick="exportJSON()"style="font-size:16pt">Export JSON</label></td>
+            <td style="text-align:center"><label class="upload" onclick="showPage(5)" style="font-size:16pt; width:300px">Export on Spotify account</label></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-      <div id="exportpage">
-        <table width="100%" cellspacing="16" cellpadding="0" style="font-size: 22pt; text-align:center">
-          <tbody>
-            <tr>
-              <td style="text-align:left" width="1%"><img class="back" onclick="showPage(4)"></td>
-              <td style="text-align:left" width="1%"><img class="home" onclick="showPage(1)"></td>
-              <td style="font-size: 34pt; color:#FFF; text-align:right" colspan="2">Export on this Spotify Account</td>
-            </tr>
-            <tr><td colspan="3">1. <a href="https://accounts.spotify.com/login">Login</a> into the Spotify account where you want the files to be exported.</td></tr>
-            <tr><td colspan="3">2. Get OAuth Token by clicking <a href="https://developer.spotify.com/web-api/console/get-current-user/token?scope=user-read-private&scope=user-read-birthdate&scope=user-read-email&scope=playlist-read-private&scope=playlist-read-collaborative&scope=playlist-modify-public&scope=playlist-modify-private&scope=user-library-read&scope=user-library-modify&scope=user-follow-read&scope=user-follow-modify&scope=user-top-read&scope=user-read-playback-state&scope=user-read-recently-played&scope=user-read-currently-playing&scope=user-modify-playback-state">here</a> and copy it.</tr>
-            <tr><td colspan="3">3. Paste the token into the field below and press <i>ENTER<i>.</tr>
-            <tr><td colspan="3"><input type="text" id="p2_auth"><img class="search" id="p2_search"></td></tr>
-            <tr>
-              <td colspan="3">
-                <table width="100%" cellspacing="16" cellpadding="0" id="p2_infos" style="font-size: 14pt; text-align:left">
-                  <thead>
-                    <tr><td style="font-size: 22pt; text-align:center" colspan="4">4. Press <i>SEND HERE</i> to initialize the exporting process.</tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td style="text-align: right" rowspan="4"><img id="p2_img" src="img/noimg.png" width="128px" height="128px"></td>
-                      <td width="100%">Send Infos to this Account</td>
-                      <td rowspan="4" style="width:250px;">
-                        <label id="convert" class="upload" style="width:250px; font-size: 16pt"></label>
-                        <div id="p2_console" style="overflow-y: scroll; height:67px; width:100%; background-color:rgba(0,0,0,0.1)"></div>
-                      </td>
-                    </tr>
-                    <tr><td id="p2_name"></td></tr>
-                    <tr><td id="p2_birth"></td></tr>
-                    <tr><td id="p2_email"></td></tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="3">
-                <div class="progress">
-                  <div class="bar" id="p2_bar"></div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div id="exportpage" class="page_config">
+      <table width="100%" cellspacing="16" cellpadding="0" style="font-size: 22pt; text-align:center">
+        <tbody>
+          <tr>
+            <td style="text-align:left" width="1%"><img class="back" onclick="goBack()"></td>
+            <td style="text-align:left" width="1%"><img class="home" onclick="showPage(1)"></td>
+            <td style="font-size: 34pt; color:#FFF; text-align:right" colspan="2">Export on this Spotify Account</td>
+          </tr>
+          <tr><td colspan="3">1. <a href="https://accounts.spotify.com/login">Login</a> into the Spotify account where you want the files to be exported.</td></tr>
+          <tr><td colspan="3">2. Get OAuth Token by clicking <a href="https://developer.spotify.com/web-api/console/get-current-user/token?scope=user-read-private&scope=user-read-birthdate&scope=user-read-email&scope=playlist-read-private&scope=playlist-read-collaborative&scope=playlist-modify-public&scope=playlist-modify-private&scope=user-library-read&scope=user-library-modify&scope=user-follow-read&scope=user-follow-modify&scope=user-top-read&scope=user-read-playback-state&scope=user-read-recently-played&scope=user-read-currently-playing&scope=user-modify-playback-state">here</a> and copy it.</tr>
+          <tr><td colspan="3">3. Paste the token into the field below and press <i>ENTER<i>.</tr>
+          <tr><td colspan="3"><input type="text" id="p2_auth"><img class="search" id="p2_search"></td></tr>
+          <tr>
+            <td colspan="3">
+              <table width="100%" cellspacing="16" cellpadding="0" id="p2_infos" style="font-size: 14pt; text-align:left">
+                <thead>
+                  <tr><td style="font-size: 22pt; text-align:center" colspan="4">4. Press <i>SEND HERE</i> to initialize the exporting process.</tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="text-align: right" rowspan="4"><img id="p2_img" src="img/noimg.png" width="128px" height="128px"></td>
+                    <td width="100%">Send Infos to this Account</td>
+                    <td rowspan="4" style="width:250px;">
+                      <label id="convert" class="upload" style="width:250px; font-size: 16pt"></label>
+                      <div id="p2_console" style="overflow-y: scroll; height:67px; width:100%; background-color:rgba(0,0,0,0.1)"></div>
+                    </td>
+                  </tr>
+                  <tr><td id="p2_name"></td></tr>
+                  <tr><td id="p2_birth"></td></tr>
+                  <tr><td id="p2_email"></td></tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <div class="progress">
+                <div class="bar" id="p2_bar"></div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div id="footer">
       <span style="display:inline-flex; float:left">
