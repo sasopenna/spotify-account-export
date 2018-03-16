@@ -1,2 +1,3 @@
 # ignore local files
 files/
+.tmp.drivedownload/
