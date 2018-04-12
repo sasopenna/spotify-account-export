@@ -16,3 +16,19 @@ let main_array = [true, true, true, true];
 
 let otheruser = false;
 let started = false;
+
+console.log("test");
+
+const OAUTH_LINK = "https://beta.developer.spotify.com/console/get-current-user/";
+const LOGIN_LINK = "https://accounts.spotify.com/login";
+
+let oauth_links = document.getElementsByName("getoauth");
+let login_links = document.getElementsByName("loginlink");
+
+for (let oauth of oauth_links) {
+  oauth.href = OAUTH_LINK;
+}
+
+for (let login of login_links) {
+  login.href = LOGIN_LINK;
+}

@@ -2,7 +2,7 @@ function loadJSON(obj) {
   started = false;
 
   //obj name may be null
-  if(/*!obj.name || */!obj.id || !obj.email || !obj.birthdate || !obj.imgs || !obj.url || !obj.songs || !obj.albums || !obj.artists || !obj.playlists) {
+  if ( /*!obj.name || */ !obj.id || !obj.email || !obj.birthdate || !obj.imgs || !obj.url || !obj.songs || !obj.albums || !obj.artists || !obj.playlists) {
     alert("Invalid JSON file");
     return;
   }
@@ -25,11 +25,14 @@ function loadJSON(obj) {
     [playlists_array, "playlists"]
   ];
 
-  for(let g = 0; g < getType.length; g++) {
+  for (let g = 0; g < getType.length; g++) {
     let get = getType[g];
-    let array = get[0], type = get[1];
+    let array = get[0],
+      type = get[1];
+
     array.length = 0;
-    for(let e = 0; e < obj[type].length; e++) {
+
+    for (let e = 0; e < obj[type].length; e++) {
       let el = obj[type][e];
       el.export = main_array[g];
       array.push(el);
@@ -53,12 +56,12 @@ function loadJSON(obj) {
 }
 
 function exportJSON() {
-  if(started) {
-	  alert("You can't do this now.");
-	  return;
+  if (started) {
+    alert("You can't do this now.");
+    return;
   }
-  if(!Object.keys(user_array).length) {
-	alert("There is nothing to export.");
+  if (!Object.keys(user_array).length) {
+    alert("There is nothing to export.");
     started = false;
     return;
   }
@@ -78,7 +81,7 @@ function exportJSON() {
   downloadJSON(data, ((user_array.display_name != null) ? user_array.display_name : user_array.id))
 }
 
-function downloadJSON(obj, name){
+function downloadJSON(obj, name) {
   let str = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj));
   let download = document.createElement('a');
   download.setAttribute("href", str);

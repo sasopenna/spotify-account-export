@@ -44,8 +44,8 @@
             <td style="text-align:left" width="1%"><img class="back" onclick="goBack()"></td>
             <td style="font-size: 34pt; color:#FFF; padding-right: 76px">OAuth Login</td>
           </tr>
-          <tr><td colspan="2">1. <a href="https://accounts.spotify.com/login">Login</a> into your Spotify account.</td></tr>
-          <tr><td colspan="2">2. Get OAuth Token by clicking <a href="https://developer.spotify.com/web-api/console/get-current-user/token?scope=user-read-private&scope=user-read-birthdate&scope=user-read-email&scope=playlist-read-private&scope=playlist-read-collaborative&scope=playlist-modify-public&scope=playlist-modify-private&scope=user-library-read&scope=user-library-modify&scope=user-follow-read&scope=user-follow-modify&scope=user-top-read&scope=user-read-playback-state&scope=user-read-recently-played&scope=user-read-currently-playing&scope=user-modify-playback-state">here</a> and copy it.</tr>
+          <tr><td colspan="2">1. <a name="loginlink">Login</a> into your Spotify account.</td></tr>
+          <tr><td colspan="2">2. Get OAuth Token by clicking <a name="getoauth">here</a> and copy it.</tr>
           <tr><td colspan="2">3. Paste the token into the field below and press <i>ENTER<i>.</tr>
           <tr><td colspan="2"><input type="text" id="p1_auth"><img class="search" id="p1_search"></td></tr>
           <tr>
@@ -140,8 +140,8 @@
             <td style="text-align:left" width="1%"><img class="home" onclick="showPage(1)"></td>
             <td style="font-size: 34pt; color:#FFF; text-align:right" colspan="2">Export on this Spotify Account</td>
           </tr>
-          <tr><td colspan="3">1. <a href="https://accounts.spotify.com/login">Login</a> into the Spotify account where you want the files to be exported.</td></tr>
-          <tr><td colspan="3">2. Get OAuth Token by clicking <a href="https://developer.spotify.com/web-api/console/get-current-user/token?scope=user-read-private&scope=user-read-birthdate&scope=user-read-email&scope=playlist-read-private&scope=playlist-read-collaborative&scope=playlist-modify-public&scope=playlist-modify-private&scope=user-library-read&scope=user-library-modify&scope=user-follow-read&scope=user-follow-modify&scope=user-top-read&scope=user-read-playback-state&scope=user-read-recently-played&scope=user-read-currently-playing&scope=user-modify-playback-state">here</a> and copy it.</tr>
+          <tr><td colspan="3">1. <a name="loginlink">Login</a> into the Spotify account where you want the files to be exported.</td></tr>
+          <tr><td colspan="3">2. Get OAuth Token by clicking <a name="getoauth">here</a> and copy it.</tr>
           <tr><td colspan="3">3. Paste the token into the field below and press <i>ENTER<i>.</tr>
           <tr><td colspan="3"><input type="text" id="p2_auth"><img class="search" id="p2_search"></td></tr>
           <tr>
@@ -185,7 +185,7 @@
       <span style="float:right; padding-right: 4px;">
         <a href="https://github.com/sasopenna/spotify-account-export" class="dark">Guide</a>
         <a href="https://github.com/JMPerez/spotify-web-api-js" class="dark">API</a>
-        <a href="https://accounts.spotify.com/login" class="dark">Login</a>
+        <a name="loginlink" class="dark">Login</a>
         <a href="https://spotify.com" class="dark">Spotify</a>
       </span>
     </div>

@@ -27,7 +27,7 @@ function getP2informations() {
     setBar(1, "Insert an OAuth Token.", 1);
     return;
   }
-  if(!Object.keys(user_array).length) {
+  if (!Object.keys(user_array).length) {
     searchImg[1].className = "search";
     setBar(1, "You need to insert the first account.", 1);
     return;
@@ -259,8 +259,12 @@ function selectOption(parent, change = -1) {
     }
   }
 
-  parent.onmouseover = function() { changeOver(parent, change); }
-  parent.onmouseout = function() { changeOver(parent, !change); }
+  parent.onmouseover = function() {
+    changeOver(parent, change);
+  }
+  parent.onmouseout = function() {
+    changeOver(parent, !change);
+  }
   parent.src = (change) ? "img/add.png" : "img/remove.png";
 
   document.getElementById("p1_total" + type[1]).innerHTML = "Total " + type[1] + ": " + spliceArray(array, 1, "id").length;
